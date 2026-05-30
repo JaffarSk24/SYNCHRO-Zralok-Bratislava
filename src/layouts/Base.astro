@@ -1,16 +1,112 @@
 ---
 import "../styles/global.css";
 import club from "../content/club.json";
+import medals from "../content/medals.json";
 
 interface Props {
   title?: string;
   description?: string;
+  image?: string;
 }
 const {
   title = `${club.name} — ${club.tagline}`,
-  description = club.intro,
+  description = `${club.intro} Prihlás dcérku na letné kempy alebo priamo do klubu.`,
+  image = "/og-image.png",
 } = Astro.props;
-const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
+
+const siteUrl = "https://synchrozralok.com";
+const canonical = `${siteUrl}${Astro.url.pathname}`;
+const ogImage = `${siteUrl}${image}`;
+
+// Schema.org JSON-LD
+const schemaOrg = [
+  // Primary: SportsOrganization (rich results, knowledge panel)
+  {
+    "@context": "https://schema.org",
+    "@type": ["SportsOrganization", "LocalBusiness"],
+    "@id": `${siteUrl}/#organization`,
+    name: club.name,
+    alternateName: club.shortName,
+    url: siteUrl,
+    logo: `${siteUrl}/logo-zralok.svg`,
+    image: ogImage,
+    description: club.intro,
+    sport: "Synchronized Swimming",
+    foundingDate: "2004",
+    areaServed: {
+      "@type": "City",
+      name: "Bratislava",
+      "@id": "https://www.wikidata.org/wiki/Q1780",
+    },
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Bratislava",
+      addressRegion: "Bratislavský kraj",
+      addressCountry: "SK",
+    },
+    sameAs: [
+      club.instagram,
+      "https://www.instagram.com/synchro.zralok.bratislava/",
+    ],
+    numberOfEmployees: { "@type": "QuantitativeValue", value: 4 },
+    knowsAbout: [
+      "Synchronized swimming",
+      "Artistic swimming",
+      "Akvabelky",
+      "Synchronizované plávanie",
+    ],
+  },
+  // WebSite — enables Sitelinks Searchbox
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${siteUrl}/#website`,
+    url: siteUrl,
+    name: club.name,
+    inLanguage: "sk-SK",
+    publisher: { "@id": `${siteUrl}/#organization` },
+  },
+  // BreadcrumbList — helps sitelinks
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "O klube", item: `${siteUrl}/#o-klube` },
+      { "@type": "ListItem", position: 2, name: "Naše tituly", item: `${siteUrl}/#tituly` },
+      { "@type": "ListItem", position: 3, name: "Letné kempy", item: `${siteUrl}/#kempy` },
+      { "@type": "ListItem", position: 4, name: "Galéria", item: `${siteUrl}/#galeria` },
+      { "@type": "ListItem", position: 5, name: "Kontakt", item: `${siteUrl}/#kontakt` },
+    ],
+  },
+  // Event: upcoming summer camp
+  {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    name: "Letný kemp Akvabelky 2026",
+    startDate: "2026-07-13",
+    endDate: "2026-08-08",
+    eventStatus: "https://schema.org/EventScheduled",
+    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+    location: {
+      "@type": "Place",
+      name: "Plavecká Akadémia Devínska",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Bratislava – Devínska Nová Ves",
+        addressCountry: "SK",
+      },
+    },
+    organizer: { "@id": `${siteUrl}/#organization` },
+    offers: {
+      "@type": "Offer",
+      price: "189",
+      priceCurrency: "EUR",
+      availability: "https://schema.org/InStock",
+      url: "https://plaveckaakademia.sk/kurzy/pre-deti/camp-akvabelky",
+    },
+    description: "Letný kemp synchronizovaného plávania pre dievčatá 6–12 rokov. Tréningy vo vode aj na suchu, nové priateľstvá a radosť z pohybu.",
+  },
+];
 ---
 
 <!doctype html>
@@ -20,17 +116,34 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : un
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    {canonical && <link rel="canonical" href={canonical} />}
+    <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="theme-color" content="#050f1a" />
 
+    <!-- SEO -->
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="keywords" content="synchronizované plávanie Bratislava, akvabelky Bratislava, synchro plávanie deti, letný kemp plávanie, artistické plávanie, SYNCHRO Žralok" />
+    <meta name="author" content="SYNCHRO Žralok Bratislava" />
+
+    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={club.name} />
+    <meta property="og:url" content={canonical} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content="/og-image.png" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="SYNCHRO Žralok Bratislava — klub synchronizovaného plávania" />
     <meta property="og:locale" content="sk_SK" />
-    <meta name="twitter:card" content="summary_large_image" />
 
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -38,15 +151,10 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : un
       rel="stylesheet"
     />
 
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "SportsClub",
-      name: club.name,
-      sport: "Synchronized swimming",
-      areaServed: "Bratislava, Slovakia",
-      url: canonical,
-      sameAs: [club.instagram],
-    })} />
+    <!-- Schema.org JSON-LD -->
+    {schemaOrg.map((schema) => (
+      <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    ))}
   </head>
   <body>
     <slot />

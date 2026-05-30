@@ -2,12 +2,12 @@
 import Base from "../layouts/Base.astro";
 import Nav from "../components/Nav.astro";
 import Hero from "../components/Hero.astro";
+import Gallery from "../components/Gallery.astro";
+import Camps from "../components/Camps.astro";
 import About from "../components/About.astro";
 import Titles from "../components/Titles.astro";
-import Competitions from "../components/Competitions.astro";
-import Camps from "../components/Camps.astro";
 import Coaches from "../components/Coaches.astro";
-import Gallery from "../components/Gallery.astro";
+import Competitions from "../components/Competitions.astro";
 import Contact from "../components/Contact.astro";
 import Footer from "../components/Footer.astro";
 ---
@@ -15,14 +15,14 @@ import Footer from "../components/Footer.astro";
 <Base>
   <Nav />
   <main>
-    <Hero />
-    <About />
-    <Titles />
-    <Competitions />
-    <Camps />
-    <Coaches />
-    <Gallery />
-    <Contact />
+    <Hero />          <!-- 1. Prvý dojem + CTA -->
+    <Gallery />       <!-- 2. Hneď fotky — rodičia chcú vidieť šport -->
+    <Camps />         <!-- 3. Hlavná konverzia — letné kempy / zápis -->
+    <About />         <!-- 4. Čo je to za šport + vekové kategórie -->
+    <Titles />        <!-- 5. Dôveryhodnosť — medailová bilancia -->
+    <Coaches />       <!-- 6. Kto tréner ich dieťa -->
+    <Competitions />  <!-- 7. Kde súťažíme -->
+    <Contact />       <!-- 8. Záverečné CTA -->
   </main>
   <Footer />
 </Base>

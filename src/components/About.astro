@@ -13,10 +13,11 @@ import club from "../content/club.json";
       <p class="mt-4 text-muted leading-relaxed">{club.facilities} Začať s nami môžu dievčatá už od 5 rokov – od úplných začiatočníčok až po pretekárky reprezentujúce klub v zahraničí.</p>
 
       <div class="mt-8 grid grid-cols-3 gap-4">
-        {club.stats.map((s) => (
+        {club.stats.map((s: { value: string; label: string; sub?: string }) => (
           <div class="card p-4 text-center">
             <div class="font-display font-bold text-xl md:text-2xl text-cyan">{s.value}</div>
             <div class="text-xs text-muted mt-1 leading-snug">{s.label}</div>
+            {s.sub && <div class="text-[10px] text-muted/50 mt-0.5 leading-none">{s.sub}</div>}
           </div>
         ))}
       </div>
