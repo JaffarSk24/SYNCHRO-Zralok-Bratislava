@@ -1,0 +1,40 @@
+---
+import gallery from "../content/gallery.json";
+import club from "../content/club.json";
+const items = gallery.slice(0, 12);
+---
+
+<section id="galeria" class="relative bg-abyss py-20 md:py-28">
+  <div class="container-x">
+    <div class="flex flex-wrap items-end justify-between gap-4" data-reveal>
+      <div class="max-w-2xl">
+        <p class="eyebrow mb-4"><span class="w-6 hairline"></span> Galéria</p>
+        <h2 class="text-3xl md:text-4xl font-bold leading-tight">Momentky z vody</h2>
+      </div>
+      <a href={club.instagram} target="_blank" rel="noopener" class="btn btn-ghost !py-2.5 !px-5 text-sm">
+        Viac na Instagrame →
+      </a>
+    </div>
+
+    <div class="mt-9 columns-2 md:columns-3 lg:columns-4 gap-4 [&>*]:mb-4">
+      {items.map((g, i) => (
+        <a
+          href={g.permalink}
+          target="_blank"
+          rel="noopener"
+          class="block break-inside-avoid rounded-2xl overflow-hidden border border-white/8 relative group"
+          data-reveal
+        >
+          <img
+            src={g.src}
+            alt={g.caption || club.name}
+            loading="lazy"
+            class="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+          <span class="absolute inset-0 bg-gradient-to-t from-abyss/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></span>
+          <span class="absolute bottom-3 left-3 right-3 text-xs text-ink/90 opacity-0 group-hover:opacity-100 transition-opacity line-clamp-2">{g.caption}</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

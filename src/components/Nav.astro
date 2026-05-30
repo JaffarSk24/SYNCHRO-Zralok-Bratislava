@@ -1,0 +1,140 @@
+---
+import club from "../content/club.json";
+import Logo from "./Logo.astro";
+const links = [
+  { href: "#o-klube", label: "O klube" },
+  { href: "#tituly", label: "Tituly" },
+  { href: "#sutaze", label: "Súťaže" },
+  { href: "#kempy", label: "Kempy" },
+  { href: "#galeria", label: "Galéria" },
+  { href: "#kontakt", label: "Kontakt" },
+];
+---
+
+<header id="nav" class="fixed top-0 inset-x-0 z-50 transition-all duration-300">
+  <div class="container-x flex items-center justify-between h-[68px]">
+
+    <!-- Brand -->
+    <a href="#top" class="flex items-center gap-2.5 group" aria-label="SYNCHRO Žralok Bratislava">
+      <Logo class="w-9 h-9 text-cyan group-hover:scale-110 transition-transform" variant="shark" />
+      <!-- SVG text wordmark (currentColor → white) -->
+      <Logo class="h-8 w-auto text-ink group-hover:text-cyan transition-colors" variant="text" />
+    </a>
+
+    <!-- Desktop nav links -->
+    <nav class="hidden md:flex items-center gap-1" aria-label="Hlavná navigácia">
+      {links.map((l) => (
+        <a
+          href={l.href}
+          class="px-3.5 py-2 text-sm text-muted hover:text-ink rounded-full hover:bg-white/5 transition-colors"
+        >{l.label}</a>
+      ))}
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <a href={club.instagram} target="_blank" rel="noopener" class="hidden sm:inline-flex btn btn-ghost !py-2 !px-4 text-sm">
+        Instagram
+      </a>
+      <!-- Mobile burger -->
+      <button id="burger" class="md:hidden flex flex-col gap-1.5 p-2 rounded-xl hover:bg-white/5 transition" aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu">
+        <span class="burger-line block w-5 h-0.5 bg-ink transition-all origin-center"></span>
+        <span class="burger-line block w-5 h-0.5 bg-ink transition-all origin-center"></span>
+        <span class="burger-line block w-5 h-0.5 bg-ink transition-all origin-center"></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div
+    id="mobile-menu"
+    class="md:hidden hidden px-5 pb-5 pt-2"
+    aria-hidden="true"
+  >
+    <nav class="flex flex-col gap-1" aria-label="Mobilná navigácia">
+      {links.map((l) => (
+        <a
+          href={l.href}
+          class="mobile-link px-4 py-3 text-base text-muted hover:text-ink rounded-xl hover:bg-white/5 transition-colors"
+        >{l.label}</a>
+      ))}
+      <a href={club.instagram} target="_blank" rel="noopener" class="mt-2 btn btn-ghost !justify-center">
+        Instagram
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const nav = document.getElementById("nav") as HTMLElement;
+  const burger = document.getElementById("burger") as HTMLButtonElement;
+  const mobileMenu = document.getElementById("mobile-menu") as HTMLElement;
+
+  // scroll solid
+  const onScroll = () => {
+    nav.classList.toggle("nav-solid", window.scrollY > 24);
+  };
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+
+  // burger toggle
+  const openMenu = () => {
+    mobileMenu.classList.remove("hidden");
+    mobileMenu.removeAttribute("aria-hidden");
+    burger.setAttribute("aria-expanded", "true");
+    burger.classList.add("burger-open");
+    document.body.style.overflow = "hidden";
+  };
+  const closeMenu = () => {
+    mobileMenu.classList.add("hidden");
+    mobileMenu.setAttribute("aria-hidden", "true");
+    burger.setAttribute("aria-expanded", "false");
+    burger.classList.remove("burger-open");
+    document.body.style.overflow = "";
+  };
+
+  burger.addEventListener("click", () => {
+    burger.getAttribute("aria-expanded") === "true" ? closeMenu() : openMenu();
+  });
+
+  // close on link click
+  mobileMenu.querySelectorAll(".mobile-link").forEach((a) => {
+    a.addEventListener("click", closeMenu);
+  });
+
+  // close on outside click / Escape
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeMenu(); });
+</script>
+
+<style is:global>
+  #nav.nav-solid {
+    background: color-mix(in srgb, var(--color-abyss) 82%, transparent);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid color-mix(in srgb, var(--color-cyan) 14%, transparent);
+  }
+  #nav.nav-solid #mobile-menu:not(.hidden) {
+    background: color-mix(in srgb, var(--color-abyss) 94%, transparent);
+    backdrop-filter: blur(14px);
+  }
+  #mobile-menu:not(.hidden) {
+    background: var(--color-deep);
+    border-top: 1px solid color-mix(in srgb, var(--color-cyan) 10%, transparent);
+  }
+
+  /* burger → X animation */
+  #burger.burger-open .burger-line:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+  #burger.burger-open .burger-line:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  #burger.burger-open .burger-line:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+
+  /* keep nav SVG text small */
+  #nav .inline-block svg {
+    max-height: 32px;
+    width: auto;
+  }
+</style>

@@ -1,0 +1,22 @@
+{
+  "name": "SYNCHRO Žralok Bratislava",
+  "shortName": "Synchro Žralok",
+  "tagline": "Klub synchronizovaného plávania pre deti",
+  "city": "Bratislava, Slovensko",
+  "intro": "Sme klub synchronizovaného (artistického) plávania z Bratislavy. Spájame plávanie, gymnastiku, tanec a hudbu do jedného krásneho športu – a učíme dievčatá disciplíne, eleganciu a tímovému duchu už od útleho veku.",
+  "instagram": "https://www.instagram.com/synchro.zralok.bratislava/",
+  "instagramHandle": "@synchro.zralok.bratislava",
+  "facilities": "Tréningy prebiehajú v Bratislave (Devínska Nová Ves).",
+  "disciplines": [
+    "Povinné figúry",
+    "Sólo",
+    "Duo / Duet",
+    "Tím",
+    "Kombinácia (Combo)"
+  ],
+  "stats": [
+    { "value": "U8 – U16", "label": "vekové kategórie" },
+    { "value": "3", "label": "krajiny súťaží (SK · HU · CZ)" },
+    { "value": "od 5", "label": "rokov sa dá začať" }
+  ]
+}

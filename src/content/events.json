@@ -1,0 +1,25 @@
+{
+  "camps": {
+    "title": "Letné kempy akvabeliek 2026",
+    "subtitle": "Staň sa akvabelkou!",
+    "description": "Leto, voda, hudba a úsmevy. Pozývame všetky dievčatá zažiť nezabudnuteľné letné kempy – kombináciu pohybu, elegancie, tímovej energie a radosti z vody. Kempy sú vhodné pre začiatočníčky aj pokročilé akvabely.",
+    "audience": "Dievčatá 6 – 12 rokov",
+    "location": "Bratislava – Devínska",
+    "schedule": "Pondelok – piatok, 8:00 – 16:30",
+    "price": "189 €",
+    "priceNote": "/ turnus (10 tréningových jednotiek)",
+    "includes": [
+      "Tréningy vo vode aj na suchu",
+      "Zlepšenie techniky, flexibility a koordinácie",
+      "Nácvik figúr a choreografií na hudbu",
+      "Nové kamarátstva a spoločné zážitky"
+    ],
+    "sessions": [
+      { "label": "1. turnus", "dates": "13. – 17. 7. 2026" },
+      { "label": "2. turnus", "dates": "20. – 24. 7. 2026" },
+      { "label": "3. turnus", "dates": "3. – 8. 8. 2026" }
+    ],
+    "ctaUrl": "https://plaveckaakademia.sk/kurzy/pre-deti/camp-akvabelky?stredisko%255B0%255D=Dev%25C3%25ADnska%23terminy",
+    "ctaLabel": "Prihláška na kemp"
+  }
+}

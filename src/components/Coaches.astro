@@ -1,0 +1,37 @@
+---
+import coaches from "../content/coaches.json";
+---
+
+<section id="treneri" class="relative bg-deep py-20 md:py-28">
+  <div class="container-x">
+    <div class="max-w-2xl" data-reveal>
+      <p class="eyebrow mb-4"><span class="w-6 hairline"></span> Tréneri</p>
+      <h2 class="text-3xl md:text-4xl font-bold leading-tight">Ľudia za úspechmi</h2>
+      <p class="mt-4 text-muted text-lg">Náš tím vedie dievčatá s láskou k vode a zmyslom pre detail.</p>
+    </div>
+
+    <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      {coaches.map((co) => (
+        <div class="card p-6 flex items-start gap-4" data-reveal>
+          <div class="flex-none w-14 h-14 rounded-full grid place-items-center font-display font-bold text-xl text-abyss" style="background:linear-gradient(135deg,var(--color-cyan),var(--color-wave))">
+            {co.name.split(" ").map((n) => n[0]).join("")}
+          </div>
+          <div>
+            <h3 class="font-display font-semibold text-lg leading-tight">{co.name}</h3>
+            <p class="text-cyan text-sm">{co.role}</p>
+            <p class="mt-2 text-sm text-muted leading-relaxed">{co.bio}</p>
+            {co.instagram && (
+              <a href={co.instagram} target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 mt-3 text-xs text-muted hover:text-cyan transition-colors">
+                <svg viewBox="0 0 24 24" class="w-4 h-4" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s0 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58 0-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.2 15.58 2.2 15.2 2.2 12s0-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.2 8.8 2.2 12 2.2Zm0 3.2A6.6 6.6 0 1 0 18.6 12 6.6 6.6 0 0 0 12 5.4Zm0 10.9A4.3 4.3 0 1 1 16.3 12 4.3 4.3 0 0 1 12 16.3Zm6.85-11.15a1.54 1.54 0 1 1-1.54-1.54 1.54 1.54 0 0 1 1.54 1.54Z"/></svg>
+                Instagram
+              </a>
+            )}
+          </div>
+        </div>
+      ))}
+      <div class="card p-6 flex flex-col justify-center items-start border-dashed" data-reveal>
+        <p class="text-muted text-sm">Tréningový tím sa rozrastá. Sledujte nás pre viac o našich trénerkach.</p>
+      </div>
+    </div>
+  </div>
+</section>

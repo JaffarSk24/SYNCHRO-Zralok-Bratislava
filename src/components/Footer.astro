@@ -1,0 +1,28 @@
+---
+import club from "../content/club.json";
+import Logo from "./Logo.astro";
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-abyss border-t border-white/8 py-10">
+  <div class="container-x flex flex-col md:flex-row items-center justify-between gap-6">
+    <div class="flex items-center gap-3">
+      <Logo class="w-10 h-10 text-cyan" />
+      <div class="leading-tight">
+        <div class="font-display font-bold tracking-tight">SYNCHRO <span class="text-cyan">ŽRALOK</span></div>
+        <div class="text-xs text-muted">{club.tagline}</div>
+      </div>
+    </div>
+
+    <nav class="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm text-muted">
+      <a href="#o-klube" class="hover:text-cyan transition-colors">O klube</a>
+      <a href="#tituly" class="hover:text-cyan transition-colors">Tituly</a>
+      <a href="#sutaze" class="hover:text-cyan transition-colors">Súťaže</a>
+      <a href="#kempy" class="hover:text-cyan transition-colors">Kempy</a>
+      <a href={club.instagram} target="_blank" rel="noopener" class="hover:text-cyan transition-colors">Instagram</a>
+    </nav>
+  </div>
+  <div class="container-x mt-6 text-center md:text-left">
+    <p class="text-xs text-muted/60">© {year} {club.name}. Synchronizované plávanie v Bratislave.</p>
+  </div>
+</footer>

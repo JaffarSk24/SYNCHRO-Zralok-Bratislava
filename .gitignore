@@ -1,0 +1,21 @@
+node_modules/
+dist/
+.astro/
+.DS_Store
+*.log
+
+# Secrets — NEVER commit
+.env
+.env.local
+.env.*.local
+
+# Raw source logo photos (large, local only)
+IMG_*.jpg
+457902034*.jpg
+
+# Generated Instagram data (reproduced by npm run data)
+scripts/data/
+
+# Editor
+.vscode/
+.idea/

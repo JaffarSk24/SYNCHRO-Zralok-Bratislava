@@ -1,0 +1,14 @@
+---
+// Inline, recolorable shark logo (variant="shark", default) or text wordmark (variant="text").
+// Both inherit `color` via currentColor.
+import sharkSvg from "../../public/logo-zralok.svg?raw";
+import textSvg from "../../public/logo-text.svg?raw";
+
+interface Props {
+  class?: string;
+  variant?: "shark" | "text";
+}
+const { class: className = "", variant = "shark" } = Astro.props;
+const svg = variant === "text" ? textSvg : sharkSvg;
+---
+<span class={`inline-block leading-none ${className}`} set:html={svg} />

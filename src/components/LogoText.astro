@@ -1,0 +1,8 @@
+---
+// SVG text part of the logo: SYNCHRO / ŽRALOK / BRATISLAVA
+// Vectorized from t-shirt photo. Inherits color via currentColor.
+import textSvg from "../../public/logo-text.svg?raw";
+interface Props { class?: string }
+const { class: className = "" } = Astro.props;
+---
+<span class={`inline-block leading-none ${className}`} set:html={textSvg} />

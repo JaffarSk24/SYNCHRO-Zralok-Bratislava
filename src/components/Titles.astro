@@ -1,0 +1,93 @@
+---
+import medals from "../content/medals.json";
+const order = ["U8", "U10", "U12", "U16"] as const;
+const groupMeta: Record<string, { age: string; note: string }> = {
+  U8: { age: "do 8 rokov", note: "najmladšie žralokyne" },
+  U10: { age: "do 10 rokov", note: "mladšie žiačky" },
+  U12: { age: "do 12 rokov", note: "staršie žiačky" },
+  U16: { age: "do 16 rokov", note: "juniorky / youth" },
+};
+const ct = medals.clubTotal;
+type Tally = { gold: number; silver: number; bronze: number; total: number };
+const groups = medals.groups as Record<string, Tally>;
+
+const medalRows = (g: Tally) => [
+  { kind: "gold", label: "zlato", n: g.gold, cls: "text-gold", grad: "linear-gradient(135deg,#fde68a,#d4a017)" },
+  { kind: "silver", label: "striebro", n: g.silver, cls: "text-silver", grad: "linear-gradient(135deg,#f1f5f9,#94a3b8)" },
+  { kind: "bronze", label: "bronz", n: g.bronze, cls: "text-bronze", grad: "linear-gradient(135deg,#f0b27a,#b06a2c)" },
+];
+---
+
+<section id="tituly" class="relative bg-abyss py-20 md:py-28">
+  <div class="glow" style="width:480px;height:480px;background:#0ea5e9;top:10%;right:-160px;opacity:0.22"></div>
+  <div class="container-x relative">
+    <div class="max-w-2xl" data-reveal>
+      <p class="eyebrow mb-4"><span class="w-6 hairline"></span> Naše tituly</p>
+      <h2 class="text-3xl md:text-4xl font-bold leading-tight">Medailová bilancia podľa kategórií</h2>
+      <p class="mt-4 text-muted text-lg">
+        Prehľad medailí, ktoré naše dievčatá vybojovali na domácich aj medzinárodných súťažiach – rozdelený podľa vekových kategórií.
+      </p>
+    </div>
+
+    <!-- club total banner -->
+    <div class="mt-10 card p-6 md:p-7 flex flex-col sm:flex-row items-center gap-6 justify-between" data-reveal>
+      <div>
+        <div class="text-sm text-muted uppercase tracking-widest">Spolu pre klub</div>
+        <div class="font-display font-bold text-4xl md:text-5xl mt-1">
+          {ct.total} <span class="text-muted text-2xl md:text-3xl font-semibold">medailí</span>
+        </div>
+      </div>
+      <div class="flex items-center gap-6 md:gap-9">
+        {[["gold",ct.gold,"#d4a017"],["silver",ct.silver,"#94a3b8"],["bronze",ct.bronze,"#b06a2c"]].map(([k,n,c]) => (
+          <div class="text-center">
+            <div class="mx-auto w-11 h-11 rounded-full grid place-items-center font-bold text-abyss" style={`background:${k==="gold"?"linear-gradient(135deg,#fde68a,#d4a017)":k==="silver"?"linear-gradient(135deg,#f1f5f9,#94a3b8)":"linear-gradient(135deg,#f0b27a,#b06a2c)"}`}>{n}</div>
+            <div class="text-xs text-muted mt-2 capitalize">{k==="gold"?"zlato":k==="silver"?"striebro":"bronz"}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- group cards -->
+    <div class="mt-6 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      {order.map((key) => {
+        const g = groups[key];
+        return (
+          <div class="card p-6 relative overflow-hidden group" data-reveal>
+            <div class="absolute -top-8 -right-6 font-display font-bold text-[5.5rem] leading-none text-white/[0.04] select-none">{key}</div>
+            <div class="relative">
+              <div class="flex items-baseline gap-2">
+                <span class="font-display font-bold text-2xl text-cyan">{key}</span>
+                <span class="text-xs text-muted">{groupMeta[key].age}</span>
+              </div>
+              <div class="text-xs text-muted/80">{groupMeta[key].note}</div>
+
+              <div class="mt-5 space-y-2.5">
+                {medalRows(g).map((m) => (
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2.5">
+                      <span class="w-6 h-6 rounded-full" style={`background:${m.grad}`}></span>
+                      <span class="text-sm text-muted">{m.label}</span>
+                    </div>
+                    <span class={`font-display font-bold text-xl ${m.cls}`}>{m.n}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div class="hairline my-4"></div>
+              <div class="flex items-center justify-between">
+                <span class="text-xs uppercase tracking-wider text-muted">Spolu</span>
+                <span class="font-display font-bold text-lg">{g.total}</span>
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+
+    <p class="mt-6 text-xs text-muted/70 max-w-2xl" data-reveal>
+      {medals.note} Okrem toho dievčatá získali ďalšie medaily vo výkonnostných úrovniach
+      (Level&nbsp;2/3): {medals.levelBased.gold}× zlato, {medals.levelBased.silver}× striebro,
+      {medals.levelBased.bronze}× bronz.
+    </p>
+  </div>
+</section>

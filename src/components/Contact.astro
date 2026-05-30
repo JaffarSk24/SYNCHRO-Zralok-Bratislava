@@ -1,0 +1,28 @@
+---
+import club from "../content/club.json";
+import events from "../content/events.json";
+---
+
+<section id="kontakt" class="relative bg-deep py-20 md:py-28 overflow-hidden">
+  <div class="glow" style="width:560px;height:560px;background:#0ea5e9;top:-200px;right:-160px;opacity:0.25"></div>
+  <div class="container-x relative">
+    <div class="card p-8 md:p-12 text-center max-w-3xl mx-auto" data-reveal>
+      <p class="eyebrow justify-center mb-4"><span class="w-6 hairline"></span> Pridaj sa <span class="w-6 hairline"></span></p>
+      <h2 class="text-3xl md:text-5xl font-bold leading-tight">Chceš sa stať akvabelkou?</h2>
+      <p class="mt-5 text-muted text-lg">
+        Napíš nám správu na Instagrame alebo sa rovno prihlás na letný kemp. Tešíme sa na teba vo vode! 💦🦈
+      </p>
+
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <a href={club.instagram} target="_blank" rel="noopener" class="btn btn-primary">Napíš nám na Instagrame</a>
+        <a href={events.camps.ctaUrl} target="_blank" rel="noopener" class="btn btn-ghost">{events.camps.ctaLabel}</a>
+      </div>
+
+      <div class="hairline my-8"></div>
+      <div class="flex flex-wrap justify-center gap-x-10 gap-y-2 text-sm text-muted">
+        <span>📍 {club.city}</span>
+        <a href={club.instagram} target="_blank" rel="noopener" class="hover:text-cyan transition-colors">{club.instagramHandle}</a>
+      </div>
+    </div>
+  </div>
+</section>
