@@ -3,8 +3,10 @@ import events from "../content/events.json";
 const c = events.camps;
 ---
 
-<section id="kempy" class="relative bg-abyss py-20 md:py-28 overflow-hidden">
-  <div class="glow" style="width:520px;height:520px;background:#22d3ee;bottom:-180px;left:-120px;opacity:0.25"></div>
+<section id="kempy" class="relative bg-abyss py-20 md:py-28">
+  <div class="glow-clip" aria-hidden="true">
+    <div class="glow" style="width:520px;height:520px;background:#22d3ee;bottom:-180px;left:-120px;opacity:0.25"></div>
+  </div>
   <div class="container-x relative grid lg:grid-cols-[0.95fr_1.05fr] gap-10 items-center">
     <div data-reveal>
       <p class="eyebrow mb-4"><span class="w-6 hairline"></span> Podujatia · Letné kempy</p>

@@ -102,6 +102,17 @@
   opacity: 0.5;
   pointer-events: none;
   z-index: 0;
+  /* Prevent filter from bleeding outside parent across compositing layers */
+  will-change: transform;
+  transform: translateZ(0);
+}
+/* Clip container for glow blobs — use instead of overflow-hidden on sections */
+.glow-clip {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
 }
 
 /* caustic shimmer line */

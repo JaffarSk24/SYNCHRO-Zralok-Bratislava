@@ -5,10 +5,12 @@ import Logo from "./Logo.astro";
 const ct = medals.clubTotal;
 ---
 
-<section id="top" class="relative overflow-hidden pt-[120px] pb-24 md:pt-[160px] md:pb-32">
-  <!-- water glow -->
-  <div class="glow" style="width:520px;height:520px;background:#0ea5e9;top:-120px;left:-120px"></div>
-  <div class="glow" style="width:460px;height:460px;background:#22d3ee;bottom:-160px;right:-100px;opacity:0.35"></div>
+<section id="top" class="relative pt-[120px] pb-24 md:pt-[160px] md:pb-32">
+  <!-- water glow — wrapped to prevent filter bleed across compositing layers -->
+  <div class="glow-clip" aria-hidden="true">
+    <div class="glow" style="width:520px;height:520px;background:#0ea5e9;top:-120px;left:-120px"></div>
+    <div class="glow" style="width:460px;height:460px;background:#22d3ee;bottom:-160px;right:-100px;opacity:0.35"></div>
+  </div>
   <div class="absolute inset-0 -z-10" style="background:radial-gradient(1200px 600px at 70% -10%, color-mix(in srgb, var(--color-pool) 80%, transparent), transparent 70%)"></div>
 
   <div class="container-x relative grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-6 items-center">

@@ -34,9 +34,11 @@ const links = [
     </nav>
 
     <div class="flex items-center gap-2">
-      <a href={club.instagram} target="_blank" rel="noopener" class="hidden sm:inline-flex btn btn-ghost !py-2 !px-4 text-sm">
-        Instagram
-      </a>
+      <div class="hidden sm:block">
+        <a href={club.instagram} target="_blank" rel="noopener" class="btn btn-ghost !py-2 !px-4 text-sm">
+          Instagram
+        </a>
+      </div>
       <!-- Mobile burger -->
       <button id="burger" class="md:hidden flex flex-col gap-1.5 p-2 rounded-xl hover:bg-white/5 transition" aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu">
         <span class="burger-line block w-5 h-0.5 bg-ink transition-all origin-center"></span>
