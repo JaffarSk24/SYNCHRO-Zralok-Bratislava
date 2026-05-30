@@ -45,8 +45,11 @@ const ct = medals.clubTotal;
     </div>
 
     <div class="relative flex justify-center lg:justify-end" data-reveal>
-      <div class="absolute inset-0 m-auto w-[78%] aspect-square rounded-full" style="background:radial-gradient(circle, color-mix(in srgb,var(--color-cyan) 30%, transparent), transparent 65%)"></div>
-      <Logo class="relative w-[78%] max-w-[420px] text-ink animate-floaty drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)]" />
+      <!-- centered glow circle + shark -->
+      <div class="relative w-[78%] max-w-[420px] aspect-square flex items-center justify-center">
+        <div class="absolute inset-0 rounded-full" style="background:radial-gradient(circle, color-mix(in srgb,var(--color-cyan) 32%, transparent), transparent 68%)"></div>
+        <Logo class="relative w-[85%] h-[85%] text-ink animate-floaty drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)]" />
+      </div>
     </div>
   </div>
 

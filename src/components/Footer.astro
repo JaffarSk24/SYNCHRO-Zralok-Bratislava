@@ -22,7 +22,10 @@ const year = new Date().getFullYear();
       <a href={club.instagram} target="_blank" rel="noopener" class="hover:text-cyan transition-colors">Instagram</a>
     </nav>
   </div>
-  <div class="container-x mt-6 text-center md:text-left">
+  <div class="container-x mt-6 flex flex-col md:flex-row items-center justify-between gap-2">
     <p class="text-xs text-muted/60">© {year} {club.name}. Synchronizované plávanie v Bratislave.</p>
+    <p class="text-xs text-muted/40">
+      Vytvoril <a href="https://whiteeagles.sk" target="_blank" rel="noopener" class="hover:text-muted/70 transition-colors underline underline-offset-2">White Eagles & Co.</a>
+    </p>
   </div>
 </footer>
