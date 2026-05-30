@@ -2,6 +2,7 @@
 import "../styles/global.css";
 import club from "../content/club.json";
 import medals from "../content/medals.json";
+import faqData from "../content/faq.json";
 
 interface Props {
   title?: string;
@@ -9,8 +10,10 @@ interface Props {
   image?: string;
 }
 const {
-  title = `${club.name} — ${club.tagline}`,
-  description = `${club.intro} Prihlás dcérku na letné kempy alebo priamo do klubu.`,
+  // Title: primary keyword first, brand at end, 55 chars
+  title = `Synchronizované plávanie pre deti Bratislava | SYNCHRO Žralok`,
+  // Description: action + local + USP, 155 chars
+  description = `Klub akvabeliek v Bratislave – tréningy od 5 rokov, Devínska & Karlova Ves. Letné kempy 2026 od 189 €. Prvý tréning nezáväzne. Prihlás dcérku ešte dnes!`,
   image = "/og-image.png",
 } = Astro.props;
 
@@ -78,6 +81,19 @@ const schemaOrg = [
       { "@type": "ListItem", position: 5, name: "Kontakt", item: `${siteUrl}/#kontakt` },
     ],
   },
+  // FAQPage — gives Google rich results / expanded snippets
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqData.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.a,
+      },
+    })),
+  },
   // Event: upcoming summer camp
   {
     "@context": "https://schema.org",
@@ -122,7 +138,21 @@ const schemaOrg = [
 
     <!-- SEO -->
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
-    <meta name="keywords" content="synchronizované plávanie Bratislava, akvabelky Bratislava, synchro plávanie deti, letný kemp plávanie, artistické plávanie, SYNCHRO Žralok" />
+    <!-- 2026 SEO: long-tail + local + conversational + voice-search queries -->
+    <meta name="keywords" content="
+      synchronizované plávanie Bratislava,
+      akvabelky Bratislava,
+      artistické plávanie deti Bratislava,
+      plávanie pre dievčatá od 5 rokov,
+      letný kemp plávanie 2026 Bratislava,
+      Synchro Žralok Bratislava,
+      kde sa prihlásiť na synchronizované plávanie Bratislava,
+      plávanie pre deti Devínska Nová Ves,
+      akvabely kemp 2026,
+      synchronizované plávanie začiatočníčky,
+      club artistique natation Bratislava,
+      synchronized swimming club Bratislava
+    " />
     <meta name="author" content="SYNCHRO Žralok Bratislava" />
 
     <!-- Open Graph / Facebook -->

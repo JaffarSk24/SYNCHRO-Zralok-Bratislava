@@ -19,9 +19,11 @@ import events from "../content/events.json";
       </div>
 
       <div class="hairline my-8"></div>
-      <div class="flex flex-wrap justify-center gap-x-10 gap-y-2 text-sm text-muted">
+      <div class="flex flex-wrap justify-center gap-x-8 gap-y-3 text-sm text-muted">
         <span>📍 {club.city}</span>
         <a href={club.instagram} target="_blank" rel="noopener" class="hover:text-cyan transition-colors">{club.instagramHandle}</a>
+        <a href={`mailto:${club.email}`} class="hover:text-cyan transition-colors">{club.email}</a>
+        <a href={`tel:${club.phone?.replace(/\s/g,'')}`} class="hover:text-cyan transition-colors">{club.phone}</a>
       </div>
     </div>
   </div>

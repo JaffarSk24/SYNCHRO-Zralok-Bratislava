@@ -1,0 +1,47 @@
+---
+import faq from "../content/faq.json";
+import club from "../content/club.json";
+---
+
+<section id="faq" class="relative bg-abyss py-20 md:py-28">
+  <div class="container-x">
+    <div class="max-w-2xl mx-auto text-center mb-12" data-reveal>
+      <p class="eyebrow justify-center mb-4"><span class="w-6 hairline"></span> Otázky a odpovede <span class="w-6 hairline"></span></p>
+      <h2 class="text-3xl md:text-4xl font-bold leading-tight">Čo vás zaujíma najčastejšie</h2>
+      <p class="mt-4 text-muted">Nenašli ste odpoveď? Napíšte nám na Instagrame alebo na mail.</p>
+    </div>
+
+    <div class="max-w-3xl mx-auto divide-y divide-white/8" data-reveal>
+      {faq.map((item, i) => (
+        <details class="group py-5 cursor-pointer list-none" name="faq">
+          <summary class="flex items-center justify-between gap-4 font-semibold text-ink text-base md:text-lg hover:text-cyan transition-colors select-none list-none">
+            <span>{item.q}</span>
+            <span class="flex-none w-6 h-6 rounded-full border border-white/20 grid place-items-center text-muted group-open:rotate-45 group-open:border-cyan group-open:text-cyan transition-all duration-200">
+              <svg viewBox="0 0 24 24" class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M12 5v14M5 12h14" stroke-linecap="round"/>
+              </svg>
+            </span>
+          </summary>
+          <p class="mt-3 text-muted leading-relaxed pr-10">{item.a}</p>
+        </details>
+      ))}
+    </div>
+
+    <div class="mt-12 text-center" data-reveal>
+      <p class="text-muted mb-4">Máte ďalšiu otázku?</p>
+      <div class="flex flex-wrap justify-center gap-3">
+        <a href={club.instagram} target="_blank" rel="noopener" class="btn btn-ghost !py-2.5 !px-5">
+          Napísať na Instagram
+        </a>
+        <a href={`mailto:${club.email}`} class="btn btn-ghost !py-2.5 !px-5">
+          {club.email}
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  details summary::-webkit-details-marker { display: none; }
+  details summary::marker { display: none; }
+</style>
