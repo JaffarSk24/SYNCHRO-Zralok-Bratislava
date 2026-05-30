@@ -16,7 +16,7 @@
   ],
   "stats": [
     { "value": "U8 – U16", "label": "vekové kategórie" },
-    { "value": "3", "label": "krajiny súťaží", "sub": "SK · HU · CZ" },
+    { "value": "SK · HU · CZ", "label": "krajiny súťaží" },
     { "value": "od 5", "label": "rokov sa dá začať" }
   ]
 }
