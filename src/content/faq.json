@@ -13,7 +13,8 @@
   },
   {
     "q": "Ako sa môj dcéra prihlásiť do klubu?",
-    "a": "Napíš nám správu na Instagrame @synchro.zralok.bratislava, pošli mail na synchro.zralok.bratislava@gmail.com alebo zavolaj Martine na +421 908 779 819. Prvé tréningy sú nezáväzné – stačí prísť a vyskúšať!"
+    "a": "Napíš nám správu na Instagrame <a href=\"https://www.instagram.com/synchro.zralok.bratislava/\" target=\"_blank\" rel=\"noopener\" class=\"text-cyan hover:underline\">@synchro.zralok.bratislava</a>, pošli mail na <a href=\"mailto:synchro.zralok.bratislava@gmail.com\" class=\"text-cyan hover:underline\">synchro.zralok.bratislava@gmail.com</a> alebo zavolaj Martine na <a href=\"tel:+421908779819\" class=\"text-cyan hover:underline\">+421 908 779 819</a>. Prvé tréningy sú nezáväzné – stačí prísť a vyskúšať!",
+    "html": true
   },
   {
     "q": "Čo je synchronizované (artistické) plávanie?",
