@@ -1,5 +1,6 @@
 ---
 import club from "../content/club.json";
+import LegsIcon from "./LegsIcon.astro";
 ---
 
 <section id="o-klube" class="relative bg-deep py-20 md:py-28">
@@ -24,9 +25,12 @@ import club from "../content/club.json";
     </div>
 
     <div data-reveal>
-      <div class="card p-7 md:p-8">
-        <h3 class="font-display font-semibold text-lg">Disciplíny, v ktorých súťažíme</h3>
-        <ul class="mt-5 space-y-3">
+      <div class="card p-7 md:p-8 relative overflow-hidden">
+        <!-- Background watermark icon to fill empty space elegantly -->
+        <LegsIcon class="absolute -right-4 top-[50px] w-48 h-48 text-cyan opacity-[0.06] pointer-events-none" />
+
+        <h3 class="font-display font-semibold text-lg relative z-10">Disciplíny, v ktorých súťažíme</h3>
+        <ul class="mt-5 space-y-3 relative z-10">
           {club.disciplines.map((d) => (
             <li class="flex items-center gap-3">
               <span class="flex-none grid place-items-center w-7 h-7 rounded-full text-cyan" style="background:color-mix(in srgb,var(--color-cyan) 16%, transparent)">
@@ -36,8 +40,8 @@ import club from "../content/club.json";
             </li>
           ))}
         </ul>
-        <div class="hairline my-6"></div>
-        <p class="text-sm text-muted">
+        <div class="hairline my-6 relative z-10"></div>
+        <p class="text-sm text-muted relative z-10">
           Synchronizované (artistické) plávanie rozvíja silu, ohybnosť, hudobné cítenie aj tímovú spoluprácu – a&nbsp;predovšetkým prináša deťom radosť z&nbsp;vody.
         </p>
       </div>
