@@ -203,9 +203,13 @@ const schemaOrg = [
         { threshold: 0.12 }
       );
       document.querySelectorAll("[data-reveal]").forEach((el, i) => {
-        (el as HTMLElement).style.animationDelay = `${(i % 6) * 80}ms`;
+        const htmlEl = el as HTMLElement;
+        if (!htmlEl.style.animationDelay) {
+          htmlEl.style.animationDelay = `${(i % 6) * 80}ms`;
+        }
         io.observe(el);
       });
     </script>
   </body>
 </html>
+

@@ -3,9 +3,9 @@ import medals from "../content/medals.json";
 const order = ["U8", "U10", "U12", "U16"] as const;
 const groupMeta: Record<string, { age: string; note: string }> = {
   U8: { age: "do 8 rokov", note: "najmladšie žralokyne" },
-  U10: { age: "do 10 rokov", note: "mladšie žiačky" },
-  U12: { age: "do 12 rokov", note: "staršie žiačky" },
-  U16: { age: "do 16 rokov", note: "juniorky / youth" },
+  U10: { age: "do 10 rokov", note: "najmladšie žiačky" },
+  U12: { age: "do 12 rokov", note: "mladšie žiačky" },
+  U16: { age: "do 16 rokov", note: "staršie žiačky" },
 };
 const ct = medals.clubTotal;
 type Tally = { gold: number; silver: number; bronze: number; total: number };
@@ -51,10 +51,10 @@ const medalRows = (g: Tally) => [
 
     <!-- group cards -->
     <div class="mt-6 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-      {order.map((key) => {
+      {order.map((key, index) => {
         const g = groups[key];
         return (
-          <div class="card p-6 relative overflow-hidden group" data-reveal>
+          <div class="card p-6 relative overflow-hidden group" data-reveal style={`animation-delay: ${index * 100}ms`}>
             <div class="absolute -top-8 -right-6 font-display font-bold text-[5.5rem] leading-none text-white/[0.04] select-none">{key}</div>
             <div class="relative">
               <div class="flex items-baseline gap-2">
