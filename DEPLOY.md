@@ -1,91 +1,68 @@
-# Nasadenie — synchrozralok.com
+# Deployment — synchrozralok.com
 
-Statická stránka (Astro → `dist/`). V produkcii ju obsluhuje **nginx ako statické súbory**,
-takže na serveri **nebeží žiadny Node proces** a **nedochádza ku konfliktu** s Next.js
-stránkou `whiteeagles.sk` (tá má vlastný Node proces a port).
+Статический Astro-сайт на Hetzner (`5.75.136.96`, Ubuntu 24.04, nginx) рядом с whiteeagles.sk.
+Деплой автоматический через GitHub Actions при push в ветку `main`.
 
-## 1. Build
+## Архитектура
 
-```bash
-npm install          # prvýkrát
-npm run build        # vytvorí ./dist
-```
+- **Репозиторий:** https://github.com/JaffarSk24/SYNCHRO-Zralok-Bratislava
+- **Ветки:** `develop` — работа; `main` — продакшн (любой push → автодеплой).
+- **CI/CD:** `.github/workflows/deploy.yml` — `npm ci` → `npm run build` → `rsync dist/` на сервер.
+- **Сервер:** nginx vhost `synchrozralok.com`, файлы в `/var/www/synchrozralok.com`.
+- **Basic-auth:** сайт скрыт логином/паролем (оба `12345`) до одобрения руководительницей клуба.
+  Файл: `/etc/nginx/.htpasswd-synchrozralok`.
 
-> Aktualizácia obsahu z Instagramu (medaily, súťaže, galéria) — kedykoľvek:
-> ```bash
-> npm run data       # fetch-instagram + parse-medals + download-images
-> npm run build
-> ```
+## GitHub Secrets (уже настроены)
 
-## 2. Prenos na server (Hetzner)
+| Secret | Значение |
+|---|---|
+| `SSH_PRIVATE_KEY` | приватный ed25519 deploy-ключ |
+| `SSH_HOST` | `5.75.136.96` |
+| `SSH_USER` | `root` |
+| `DEPLOY_PATH` | `/var/www/synchrozralok.com` |
 
-```bash
-# z lokálu
-rsync -avz --delete dist/ deploy@SERVER:/var/www/synchrozralok.com/
-```
+Публичный deploy-ключ установлен в `/root/.ssh/authorized_keys` на сервере.
 
-Cieľový adresár drž **oddelene** od whiteeagles (napr. `/var/www/synchrozralok.com`).
-
-## 3. nginx — samostatný server block
-
-Vytvor `/etc/nginx/sites-available/synchrozralok.com`:
-
-```nginx
-server {
-    listen 80;
-    listen [::]:80;
-    server_name synchrozralok.com www.synchrozralok.com;
-
-    root /var/www/synchrozralok.com;
-    index index.html;
-
-    # statická stránka — žiadny proxy_pass, žiadny port → 0 konfliktov s whiteeagles
-    location / {
-        try_files $uri $uri/ /index.html;
-    }
-
-    # cache statiky
-    location ~* \.(css|js|svg|png|jpg|jpeg|webp|woff2?)$ {
-        expires 30d;
-        add_header Cache-Control "public, immutable";
-    }
-
-    access_log /var/log/nginx/synchrozralok.access.log;
-}
-```
-
-Aktivuj a over:
+## Как задеплоить
 
 ```bash
-sudo ln -s /etc/nginx/sites-available/synchrozralok.com /etc/nginx/sites-enabled/
-sudo nginx -t && sudo systemctl reload nginx
+git checkout main
+git merge develop
+git push origin main      # → GitHub Actions соберёт и выложит автоматически
 ```
+Или вручную: вкладка **Actions → Deploy to Hetzner → Run workflow**.
 
-`whiteeagles.sk` zostáva nedotknutý — má svoj vlastný `server_name` a svoj proxy na Node.
+## DNS (делается в панели webglobe.sk)
 
-## 4. DNS (po kúpe domény)
+A-запись домена должна указывать на сервер Hetzner:
 
-V DNS u registrátora nasmeruj na IP Hetzner servera:
+| Тип | Имя | Значение | TTL |
+|---|---|---|---|
+| A | @ (synchrozralok.com) | `5.75.136.96` | 300 |
+| A | www | `5.75.136.96` | 300 |
 
+(удалить старую A-запись на `62.109.151.80`).
+
+## SSL (после смены DNS)
+
+Когда домен начнёт резолвиться в `5.75.136.96`:
+```bash
+ssh root@5.75.136.96
+certbot --nginx -d synchrozralok.com -d www.synchrozralok.com
 ```
-A     @      <IP_SERVERA>
-A     www    <IP_SERVERA>
-```
+certbot добавит 443-блок и редирект 80→443; basic-auth сохранится.
+Автопродление уже работает системным таймером certbot (как у whiteeagles.sk).
 
-## 5. HTTPS (Let's Encrypt)
+## Снять basic-auth (когда сайт одобрят и пора открыть публично)
 
 ```bash
-sudo certbot --nginx -d synchrozralok.com -d www.synchrozralok.com
+ssh root@5.75.136.96
+sed -i '/auth_basic/d' /etc/nginx/sites-available/synchrozralok.com
+nginx -t && systemctl reload nginx
 ```
 
-Certbot upraví server block na `listen 443 ssl` a pridá presmerovanie z HTTP.
+## Изоляция от whiteeagles.sk
 
----
-
-### Zhrnutie izolácie od whiteeagles.sk
-| | whiteeagles.sk | synchrozralok.com |
-|---|---|---|
-| Typ | Next.js (Node runtime) | statické HTML/CSS |
-| Proces | PM2/systemd + port | žiadny |
-| nginx | `proxy_pass` na Node | `root` na priečinok |
-| Konflikt | — | žiadny (iný server_name, žiadny port) |
+- Разные nginx vhost'ы (name-based по `server_name`), общий nginx.
+- Разные каталоги: `/var/www/html` (whiteeagles) vs `/var/www/synchrozralok.com`.
+- Статика, без отдельного node-процесса/порта → конфликтов нет.
