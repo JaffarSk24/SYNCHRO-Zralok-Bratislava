@@ -3,12 +3,12 @@
   "shortName": "Synchro Žralok",
   "tagline": "Klub synchronizovaného plávania pre deti",
   "city": "Bratislava, Slovensko",
-  "intro": "Sme klub synchronizovaného (artistického) plávania z Bratislavy. Spájame plávanie, gymnastiku, tanec a hudbu do jedného krásneho športu – a učíme dievčatá disciplíne, eleganciu a tímovému duchu už od útleho veku.",
+  "intro": "Sme klub synchronizovaného (artistického) plávania z Bratislavy. Spájame plávanie, gymnastiku, tanec a hudbu do jedného krásneho športu – a učíme dievčatá disciplíne, elegancii a tímovému duchu už od útleho veku.",
   "instagram": "https://www.instagram.com/synchro.zralok.bratislava/",
   "instagramHandle": "@synchro.zralok.bratislava",
   "email": "synchro.zralok.bratislava@gmail.com",
   "phone": "+421 908 779 819",
-  "facilities": "Tréningy prebiehajú v Bratislave (Devínska Nová Ves).",
+  "facilities": "Tréningy prebiehajú v Bratislave.",
   "venues": [
     { "name": "Plavecká Akadémia", "area": "Devínska Nová Ves" },
     { "name": "IUVENTA", "area": "Karlova Ves" }
@@ -18,7 +18,7 @@
     "Sólo",
     "Duo / Duet",
     "Tím",
-    "Kombinovaná zostava"
+    "Kombinovaná zostava (combo)"
   ],
   "stats": [
     { "value": "U8 – U15", "label": "vekové kategórie" },
