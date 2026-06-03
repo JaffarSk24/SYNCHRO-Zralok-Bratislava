@@ -12,6 +12,7 @@ dist/
 # Raw source logo photos (large, local only)
 IMG_*.jpg
 457902034*.jpg
+SYNCHRO_ZRALOK.png
 
 # Generated Instagram data (reproduced by npm run data)
 scripts/data/
