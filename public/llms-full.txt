@@ -17,7 +17,7 @@ Synchronizované plávanie (artistické plávanie) spája plávanie, gymnastiku,
 | U8 | do 8 rokov | Najmladšie žralokyne |
 | U10 | do 10 rokov | Mladšie žiačky |
 | U12 | do 12 rokov | Staršie žiačky |
-| U16 | do 16 rokov | Juniorky / Youth |
+| U15 | do 15 rokov | Juniorky / Youth |
 
 ## Disciplíny
 
@@ -25,7 +25,7 @@ Synchronizované plávanie (artistické plávanie) spája plávanie, gymnastiku,
 - Sólo (Solo)
 - Duo / Duet
 - Tím (Team)
-- Kombinácia (Combination / Combo)
+- Kombinovaná zostava (Combination)
 
 ## Medailová bilancia (všetky sezóny, zdroj: Instagram)
 
@@ -34,7 +34,7 @@ Synchronizované plávanie (artistické plávanie) spája plávanie, gymnastiku,
 | U8 | 1 | 0 | 1 | 2 |
 | U10 | 15 | 10 | 7 | 32 |
 | U12 | 14 | 8 | 12 | 34 |
-| U16 (Youth/Junior) | 0 | 1 | 1 | 2 |
+| U15 (Youth/Junior) | 0 | 1 | 1 | 2 |
 | Level 2/3 | 7 | 2 | 4 | 13 |
 | **KLUB CELKOM** | **37** | **21** | **25** | **83** |
 
@@ -53,9 +53,9 @@ Súťaží sa na Slovensku 🇸🇰, v Maďarsku 🇭🇺 a v Česku 🇨🇿.
 
 **Organizátor:** Plavecká Akadémia
 **Miesto:** Devínska Nová Ves, Bratislava
-**Pre:** dievčatá 6–12 rokov, začiatočníčky aj pokročilé
+**Pre:** dievčatá 5–12 rokov, začiatočníčky aj pokročilé
 **Program:** Po–Pia, 8:00–16:30 (tréningy vo vode aj na suchu)
-**Cena:** 189 € / turnusový týždeň (10 tréningov)
+**Cena:** 189 € / turnus
 
 **Termíny:**
 - 13.–17. júla 2026

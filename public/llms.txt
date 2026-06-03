@@ -6,7 +6,7 @@ SYNCHRO Žralok Bratislava je detský klub artistického (synchronizovaného) pl
 
 ## Sekcie webu
 
-- [O klube](https://synchrozralok.com/#o-klube): Čo je synchronizované plávanie, vekové kategórie U8–U16, disciplíny
+- [O klube](https://synchrozralok.com/#o-klube): Čo je synchronizované plávanie, vekové kategórie U8–U15, disciplíny
 - [Naše tituly](https://synchrozralok.com/#tituly): Medailová bilancia — 37 zlatých, 21 strieborných, 25 bronzových medailí
 - [Súťaže](https://synchrozralok.com/#sutaze): Výsledky zo sezóny 2025/26
 - [Letné kempy](https://synchrozralok.com/#kempy): Camp Akvabelky, Devínska, júl–august 2026, 189 €/týždeň
@@ -18,7 +18,7 @@ SYNCHRO Žralok Bratislava je detský klub artistického (synchronizovaného) pl
 - Klub: SYNCHRO Žralok Bratislava, o.z.
 - Šport: Synchronizované (artistické) plávanie
 - Vek: od 5 rokov
-- Kategórie: U8, U10, U12, U16
+- Kategórie: U8, U10, U12, U15
 - Lokalita: Bratislava, Devínska Nová Ves, Slovensko
 - Instagram: @synchro.zralok.bratislava
 - Hlavný tréner: Martina Nela (@martina.nela)

@@ -6,6 +6,9 @@ const fmt = (d: string) => {
   return `${months[m - 1]} ${y}`;
 };
 const flag: Record<string, string> = { Slovensko: "🇸🇰", Maďarsko: "🇭🇺", Česko: "🇨🇿" };
+// Show only the 8 most recent by default; older ones collapse under "Pozrieť viac".
+const VISIBLE = 8;
+const hasMore = competitions.length > VISIBLE;
 ---
 
 <section id="sutaze" class="relative bg-deep py-20 md:py-28">
@@ -19,10 +22,10 @@ const flag: Record<string, string> = { Slovensko: "🇸🇰", Maďarsko: "🇭�
     </div>
 
     <div class="mt-10 relative">
-      <div class="absolute left-3 md:left-1/2 top-0 bottom-0 w-px bg-white/10 md:-translate-x-1/2" aria-hidden="true"></div>
+      <div id="comp-line" class="absolute left-3 md:left-1/2 top-0 bottom-0 w-px bg-white/10 md:-translate-x-1/2" aria-hidden="true"></div>
       <ul class="space-y-4 md:space-y-0">
         {competitions.map((c, i) => (
-          <li class="relative md:grid md:grid-cols-2 md:gap-8 md:mb-8 last:md:mb-0" data-reveal>
+          <li class:list={["relative md:grid md:grid-cols-2 md:gap-8 md:mb-8 last:md:mb-0", { "comp-more comp-collapsed": i >= VISIBLE }]} data-reveal>
             <span class="absolute left-3 md:left-1/2 top-1/2 w-3 h-3 rounded-full bg-cyan -translate-x-1/2 -translate-y-1/2 ring-4 ring-deep"></span>
             <div class={`ml-9 md:ml-0 ${i % 2 ? "md:col-start-2" : "md:pr-2"}`}>
 
@@ -44,5 +47,24 @@ const flag: Record<string, string> = { Slovensko: "🇸🇰", Maďarsko: "🇭�
         ))}
       </ul>
     </div>
+
+    {hasMore && (
+      <div class="mt-8 flex justify-center">
+        <button id="comp-more-btn" class="btn btn-ghost">Pozrieť viac</button>
+      </div>
+    )}
   </div>
 </section>
+
+<style>
+  /* !important beats md:grid on the <li>, which would otherwise un-hide it */
+  .comp-more.comp-collapsed { display: none !important; }
+</style>
+
+<script>
+  const btn = document.getElementById("comp-more-btn");
+  btn?.addEventListener("click", () => {
+    document.querySelectorAll("#sutaze .comp-more").forEach((el) => el.classList.remove("comp-collapsed"));
+    btn.parentElement?.remove();
+  });
+</script>

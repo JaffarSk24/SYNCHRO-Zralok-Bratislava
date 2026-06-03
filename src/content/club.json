@@ -18,10 +18,10 @@
     "Sólo",
     "Duo / Duet",
     "Tím",
-    "Kombinácia (Combo)"
+    "Kombinovaná zostava"
   ],
   "stats": [
-    { "value": "U8 – U16", "label": "vekové kategórie" },
+    { "value": "U8 – U15", "label": "vekové kategórie" },
     { "value": "SK · HU · CZ", "label": "krajiny súťaží" },
     { "value": "od 5 rokov", "label": "dá sa začať" }
   ]

@@ -1,11 +1,11 @@
 ---
 import medals from "../content/medals.json";
-const order = ["U8", "U10", "U12", "U16"] as const;
+const order = ["U8", "U10", "U12", "U15"] as const;
 const groupMeta: Record<string, { age: string; note: string }> = {
   U8: { age: "do 8 rokov", note: "dievčatá do 8 rokov" },
   U10: { age: "do 10 rokov", note: "dievčatá do 10 rokov" },
   U12: { age: "do 12 rokov", note: "mladšie žiačky" },
-  U16: { age: "do 16 rokov", note: "staršie žiačky" },
+  U15: { age: "do 15 rokov", note: "staršie žiačky" },
 };
 const ct = medals.clubTotal;
 type Tally = { gold: number; silver: number; bronze: number; total: number };

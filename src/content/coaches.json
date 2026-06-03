@@ -4,6 +4,7 @@
     "role": "Hlavná trénerka",
     "instagram": "https://www.instagram.com/martina.nela/",
     "instagramHandle": "@martina.nela",
+    "photo": "/coaches/martina-nela.webp",
     "bio": "Vedie tréningový program klubu a privádza dievčatá k medailovým úspechom na domácich aj zahraničných súťažiach. Priamy kontakt na zápis do klubu.",
     "contact": true
   },
@@ -12,7 +13,7 @@
     "role": "Trénerky akvabeliek",
     "instagram": null,
     "instagramHandle": null,
-    "bio": "Synchro Žralok má tím skúsených tréneriek, ktoré vedú skupiny naprieč kategóriami U8 až U16. Všetky skupiny tréningy prebiehajú v Devínskej Novej Vsi a Karlovej Vsi.",
+    "bio": "Synchro Žralok má tím skúsených tréneriek, ktoré vedú skupiny naprieč kategóriami U8 až U15. Všetky skupiny tréningy prebiehajú v Devínskej Novej Vsi a Karlovej Vsi.",
     "contact": false
   }
 ]

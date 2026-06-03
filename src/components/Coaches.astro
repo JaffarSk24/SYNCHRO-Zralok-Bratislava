@@ -14,11 +14,14 @@ import club from "../content/club.json";
     <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
       {coaches.map((co) => (
         <div class="card p-6 flex items-start gap-4" data-reveal>
-          <div class="flex-none w-14 h-14 rounded-full grid place-items-center font-display font-bold text-xl text-abyss" style="background:linear-gradient(135deg,var(--color-cyan),var(--color-wave))">
-            {co.name === "Tím tréneriek"
-              ? "👥"
-              : co.name.split(" ").map((n: string) => n[0]).join("")}
-          </div>
+          {co.photo
+            ? <img src={co.photo} alt={co.name} width="56" height="56" loading="lazy" class="flex-none w-14 h-14 rounded-full object-cover ring-2 ring-cyan/30" />
+            : <div class="flex-none w-14 h-14 rounded-full grid place-items-center font-display font-bold text-xl text-abyss" style="background:linear-gradient(135deg,var(--color-cyan),var(--color-wave))">
+                {co.name === "Tím tréneriek"
+                  ? "👥"
+                  : co.name.split(" ").map((n: string) => n[0]).join("")}
+              </div>
+          }
           <div>
             <h3 class="font-display font-semibold text-lg leading-tight">{co.name}</h3>
             <p class="text-cyan text-sm">{co.role}</p>
