@@ -94,6 +94,13 @@
   color: var(--color-cyan);
 }
 
+/* recolorable logo via external-svg mask (no inline SVG bloat in HTML) */
+.logo-mask {
+  background-color: currentColor;
+  -webkit-mask: var(--logo-src) center / contain no-repeat;
+  mask: var(--logo-src) center / contain no-repeat;
+}
+
 /* gradient water glow blobs */
 .glow {
   position: absolute;
