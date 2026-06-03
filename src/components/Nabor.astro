@@ -1,16 +1,9 @@
 ---
-import club from "../content/club.json";
-
-const subject = "Prihláška do klubu Synchro Žralok Bratislava";
-const body = `Dobrý deň,
-mám záujem o prihlásenie dieťaťa do klubu Synchro Žralok Bratislava.
-
-Meno dieťaťa:
-Dátum narodenia:
-
-Meno rodiča:
-Telefónne číslo:`;
-const mailto = `mailto:${club.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+// reCAPTCHA site key is public; set PUBLIC_RECAPTCHA_SITE_KEY in env for prod.
+// Fallback is Google's universal TEST key (always passes, shows a test notice).
+const RECAPTCHA_SITE_KEY =
+  import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY || "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI";
+const ENDPOINT = "/api/prihlaska.php";
 ---
 
 <section id="nabor" class="relative bg-deep py-20 md:py-28 overflow-hidden">
@@ -32,11 +25,190 @@ const mailto = `mailto:${club.email}?subject=${encodeURIComponent(subject)}&body
       </p>
 
       <div class="mt-8 flex justify-center">
-        <a href={mailto} class="btn btn-primary">
-          <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          Zaslať prihlášku
-        </a>
+        <button id="prihlaska-open" type="button" class="btn btn-primary">
+          <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h6"/></svg>
+          Prihlasovací formulár
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Application modal -->
+  <div id="prihlaska-modal" class="nbr-modal hidden" role="dialog" aria-modal="true" aria-labelledby="prihlaska-title">
+    <div class="nbr-backdrop" data-close></div>
+    <div class="nbr-card" role="document">
+      <button class="nbr-x" type="button" data-close aria-label="Zavrieť">
+        <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+
+      <div id="prihlaska-view-form">
+        <h3 id="prihlaska-title" class="font-display text-2xl font-bold">Prihlasovací formulár</h3>
+        <p class="text-muted text-sm mt-1">Vyplňte údaje a my sa vám čoskoro ozveme.</p>
+
+        <form id="prihlaska-form" class="mt-5 space-y-3.5" novalidate>
+          <label class="nbr-field">
+            <span>Meno dieťaťa</span>
+            <input name="dieta_meno" type="text" required autocomplete="off" />
+          </label>
+          <label class="nbr-field">
+            <span>Dátum narodenia</span>
+            <input name="datum" type="date" required />
+          </label>
+          <label class="nbr-field">
+            <span>Meno rodiča</span>
+            <input name="rodic_meno" type="text" required autocomplete="name" />
+          </label>
+          <label class="nbr-field">
+            <span>E-mail</span>
+            <input name="email" type="email" required autocomplete="email" />
+          </label>
+          <label class="nbr-field">
+            <span>Telefónne číslo</span>
+            <input name="telefon" type="tel" required autocomplete="tel" />
+          </label>
+
+          <!-- honeypot (hidden from users; bots fill it) -->
+          <input type="text" name="website" tabindex="-1" autocomplete="off" class="nbr-hp" aria-hidden="true" />
+
+          <div id="recaptcha-box" class="mt-2"></div>
+
+          <p id="prihlaska-error" class="hidden text-sm" style="color:#fca5a5"></p>
+
+          <button id="prihlaska-submit" type="submit" class="btn btn-primary w-full !justify-center mt-1">Odoslať</button>
+        </form>
+      </div>
+
+      <div id="prihlaska-view-success" class="hidden text-center py-6">
+        <div class="mx-auto w-14 h-14 rounded-full grid place-items-center mb-4" style="background:color-mix(in srgb,var(--color-cyan) 16%, transparent);color:var(--color-cyan)">
+          <svg viewBox="0 0 24 24" class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+        </div>
+        <h3 class="font-display text-2xl font-bold">Prihlášku sme prijali!</h3>
+        <p class="text-muted mt-3 leading-relaxed">
+          Ďakujeme. Vašu prihlášku sme úspešne dostali – naši tréneri vás budú čoskoro
+          kontaktovať na uvedených údajoch.
+        </p>
+        <button type="button" data-close class="btn btn-ghost mt-6 !justify-center">Zavrieť</button>
       </div>
     </div>
   </div>
 </section>
+
+<style>
+  .nbr-modal { position: fixed; inset: 0; z-index: 90; display: grid; place-items: center; padding: 1rem; }
+  .nbr-modal.hidden { display: none; }
+  .nbr-backdrop { position: absolute; inset: 0; background: color-mix(in srgb, var(--color-abyss) 78%, transparent); backdrop-filter: blur(6px); }
+  .nbr-card {
+    position: relative; width: 100%; max-width: 440px; max-height: 90vh; overflow: auto;
+    background: linear-gradient(180deg, color-mix(in srgb, var(--color-pool) 96%, transparent), color-mix(in srgb, var(--color-deep) 98%, transparent));
+    border: 1px solid color-mix(in srgb, var(--color-cyan) 18%, transparent);
+    border-radius: 1.25rem; padding: 1.75rem; box-shadow: 0 30px 80px -20px rgba(0,0,0,.6);
+  }
+  .nbr-x { position: absolute; top: .9rem; right: .9rem; width: 36px; height: 36px; border-radius: 999px; display: grid; place-items: center; color: var(--color-muted); }
+  .nbr-x:hover { color: var(--color-ink); background: color-mix(in srgb, var(--color-ink) 8%, transparent); }
+  .nbr-field { display: block; }
+  .nbr-field > span { display: block; font-size: .8rem; color: var(--color-muted); margin-bottom: .3rem; }
+  .nbr-field input {
+    width: 100%; background: color-mix(in srgb, var(--color-abyss) 55%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-cyan) 18%, transparent);
+    border-radius: .7rem; padding: .6rem .8rem; color: var(--color-ink); font-size: 1rem;
+    transition: border-color .15s ease;
+  }
+  .nbr-field input:focus { outline: none; border-color: var(--color-cyan); }
+  .nbr-field input:invalid:not(:placeholder-shown) { border-color: color-mix(in srgb, #fca5a5 60%, transparent); }
+  .nbr-hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+</style>
+
+<script define:vars={{ ENDPOINT, RECAPTCHA_SITE_KEY }}>
+  const modal = document.getElementById("prihlaska-modal");
+  const openBtn = document.getElementById("prihlaska-open");
+  const form = document.getElementById("prihlaska-form");
+  const errEl = document.getElementById("prihlaska-error");
+  const submitBtn = document.getElementById("prihlaska-submit");
+  const viewForm = document.getElementById("prihlaska-view-form");
+  const viewOk = document.getElementById("prihlaska-view-success");
+
+  let widgetId = null;
+  let recaptchaLoading = false;
+
+  function renderRecaptcha() {
+    if (widgetId !== null) return;
+    if (!(window.grecaptcha && window.grecaptcha.render)) return;
+    widgetId = window.grecaptcha.render("recaptcha-box", { sitekey: RECAPTCHA_SITE_KEY });
+  }
+  // lazy-load reCAPTCHA only when the modal first opens
+  function loadRecaptcha() {
+    if (widgetId !== null) return;
+    if (window.grecaptcha && window.grecaptcha.render) { renderRecaptcha(); return; }
+    if (recaptchaLoading) return;
+    recaptchaLoading = true;
+    window.__onRecaptchaLoad = renderRecaptcha;
+    const s = document.createElement("script");
+    s.src = "https://www.google.com/recaptcha/api.js?onload=__onRecaptchaLoad&render=explicit&hl=sk";
+    s.async = true; s.defer = true;
+    document.head.appendChild(s);
+  }
+
+  function openModal() {
+    modal.classList.remove("hidden");
+    document.body.style.overflow = "hidden";
+    loadRecaptcha();
+    setTimeout(() => form?.querySelector("input")?.focus(), 50);
+  }
+  function closeModal() {
+    modal.classList.add("hidden");
+    document.body.style.overflow = "";
+  }
+
+  openBtn?.addEventListener("click", openModal);
+  modal?.querySelectorAll("[data-close]").forEach((el) => el.addEventListener("click", closeModal));
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !modal.classList.contains("hidden")) closeModal(); });
+
+  function showError(msg) { errEl.textContent = msg; errEl.classList.remove("hidden"); }
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    errEl.classList.add("hidden");
+
+    // honeypot — silently stop bots
+    if (form.website.value) { viewForm.classList.add("hidden"); viewOk.classList.remove("hidden"); return; }
+
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+
+    const token = window.grecaptcha ? window.grecaptcha.getResponse(widgetId ?? undefined) : "";
+    if (!token) { showError("Potvrďte, prosím, že nie ste robot."); return; }
+
+    const payload = {
+      dieta_meno: form.dieta_meno.value.trim(),
+      datum: form.datum.value,
+      rodic_meno: form.rodic_meno.value.trim(),
+      email: form.email.value.trim(),
+      telefon: form.telefon.value.trim(),
+      "g-recaptcha-response": token,
+    };
+
+    submitBtn.disabled = true;
+    const origText = submitBtn.textContent;
+    submitBtn.textContent = "Odosielam…";
+    try {
+      const res = await fetch(ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.ok) {
+        viewForm.classList.add("hidden");
+        viewOk.classList.remove("hidden");
+      } else {
+        showError(data.error || "Niečo sa pokazilo. Skúste to prosím znova.");
+        if (window.grecaptcha && widgetId !== null) window.grecaptcha.reset(widgetId);
+      }
+    } catch {
+      showError("Spojenie zlyhalo. Skúste to prosím znova.");
+      if (window.grecaptcha && widgetId !== null) window.grecaptcha.reset(widgetId);
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = origText;
+    }
+  });
+</script>
