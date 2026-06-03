@@ -29,6 +29,8 @@ const items = gallery.slice(0, 13);
           <img
             src={g.src}
             alt={g.caption || club.name}
+            width={g.w}
+            height={g.h}
             loading="lazy"
             class="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
           />
