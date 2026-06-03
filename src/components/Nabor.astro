@@ -11,6 +11,8 @@ Dátum narodenia:
 Meno rodiča:
 Telefónne číslo:`;
 const mailto = `mailto:${club.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+// Web fallback (Gmail compose) for browsers/devices without a configured mailto handler
+const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(club.email)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 ---
 
 <section id="nabor" class="relative bg-deep py-20 md:py-28 overflow-hidden">
@@ -32,7 +34,7 @@ const mailto = `mailto:${club.email}?subject=${encodeURIComponent(subject)}&body
       </p>
 
       <div class="mt-8 flex justify-center">
-        <a href={mailto} class="btn btn-primary">
+        <a id="nabor-apply" href={mailto} data-fallback={gmailUrl} class="btn btn-primary">
           <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
           Zaslať prihlášku
         </a>
@@ -40,3 +42,25 @@ const mailto = `mailto:${club.email}?subject=${encodeURIComponent(subject)}&body
     </div>
   </div>
 </section>
+
+<script>
+  // If no mailto handler opens (page keeps focus), fall back to Gmail web compose.
+  const link = document.getElementById("nabor-apply") as HTMLAnchorElement | null;
+  if (link) {
+    link.addEventListener("click", () => {
+      const fallback = link.dataset.fallback;
+      if (!fallback) return;
+      let left = false;
+      const mark = () => { left = true; };
+      window.addEventListener("blur", mark, { once: true });
+      document.addEventListener("visibilitychange", mark, { once: true });
+      window.setTimeout(() => {
+        window.removeEventListener("blur", mark);
+        document.removeEventListener("visibilitychange", mark);
+        if (!left && document.visibilityState === "visible") {
+          window.open(fallback, "_blank", "noopener");
+        }
+      }, 1200);
+    });
+  }
+</script>
