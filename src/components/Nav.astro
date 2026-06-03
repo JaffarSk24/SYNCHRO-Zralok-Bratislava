@@ -110,10 +110,15 @@ const links = [
 </script>
 
 <style is:global>
+  /* constant transparent border so only the COLOR transitions (no white flash
+     from the default currentColor border when nav-solid toggles) */
+  #nav {
+    border-bottom: 1px solid transparent;
+  }
   #nav.nav-solid {
     background: color-mix(in srgb, var(--color-abyss) 82%, transparent);
     backdrop-filter: blur(14px);
-    border-bottom: 1px solid color-mix(in srgb, var(--color-cyan) 14%, transparent);
+    border-bottom-color: color-mix(in srgb, var(--color-cyan) 14%, transparent);
   }
   #nav.nav-solid #mobile-menu:not(.hidden) {
     background: color-mix(in srgb, var(--color-abyss) 94%, transparent);
