@@ -17,13 +17,15 @@ const items = gallery.slice(0, 13);
       </a>
     </div>
 
-    <div class="mt-9 columns-2 md:columns-3 lg:columns-4 gap-4 [&>*]:mb-4">
-      {items.map((g, i) => (
+    <!-- Deterministic masonry (built by JS for identical layout across browsers) -->
+    <div id="gal-masonry" class="mt-9 flex flex-col gap-4">
+      {items.map((g) => (
         <a
           href={g.permalink}
           target="_blank"
           rel="noopener"
-          class="block break-inside-avoid rounded-2xl overflow-hidden border border-white/8 relative group"
+          class="gal-item block rounded-2xl overflow-hidden border border-white/8 relative group"
+          data-ratio={(g.h / g.w).toFixed(4)}
           data-reveal
         >
           <img
@@ -89,9 +91,13 @@ const items = gallery.slice(0, 13);
     transition: background .18s ease, transform .18s ease;
   }
   .sus-arrow:hover { background: color-mix(in srgb, var(--color-cyan) 12%, transparent); transform: translateY(-1px); }
+  /* masonry columns built by JS — grid guarantees strictly equal columns */
+  #gal-masonry.is-built { display: grid; gap: 1rem; align-items: start; }
+  .gal-col { display: flex; flex-direction: column; gap: 1rem; min-width: 0; }
 </style>
 
 <script>
+  // --- carousel arrows ---
   const track = document.getElementById("sus-track");
   if (track) {
     document.querySelectorAll<HTMLButtonElement>(".sus-arrow").forEach((btn) => {
@@ -99,6 +105,69 @@ const items = gallery.slice(0, 13);
         const dir = Number(btn.dataset.dir) || 1;
         track.scrollBy({ left: dir * Math.round(track.clientWidth * 0.8), behavior: "smooth" });
       });
+    });
+  }
+
+  // --- deterministic masonry (identical in every browser) ---
+  const root = document.getElementById("gal-masonry");
+  if (root) {
+    const items = Array.from(root.querySelectorAll<HTMLElement>(".gal-item"));
+    const ratios = items.map((it) => parseFloat(it.dataset.ratio || "1") + 0.06);
+    let builtCols = 0;
+    const colCount = () => (window.innerWidth >= 1024 ? 4 : window.innerWidth >= 768 ? 3 : 2);
+
+    // optimal contiguous partition into `cols` columns (minimise tallest column,
+    // keeps document order -> staggered look, balanced bottoms, deterministic)
+    const partition = (cols: number): number[][] => {
+      const n = ratios.length;
+      const total = ratios.reduce((a, b) => a + b, 0);
+      const maxItem = Math.max(...ratios);
+      const fits = (cap: number) => {
+        let used = 1, sum = 0;
+        for (const r of ratios) {
+          if (sum + r > cap) { used++; sum = r; } else sum += r;
+        }
+        return used <= cols;
+      };
+      let lo = maxItem, hi = total;
+      for (let i = 0; i < 60 && hi - lo > 1e-4; i++) {
+        const mid = (lo + hi) / 2;
+        if (fits(mid)) hi = mid; else lo = mid;
+      }
+      const cap = hi + 1e-4;
+      const groups: number[][] = [];
+      let cur: number[] = [], sum = 0;
+      for (let i = 0; i < n; i++) {
+        if (cur.length && sum + ratios[i] > cap) {
+          groups.push(cur); cur = []; sum = 0;
+        }
+        cur.push(i); sum += ratios[i];
+      }
+      if (cur.length) groups.push(cur);
+      while (groups.length < cols) groups.push([]); // safety (rarely needed)
+      return groups;
+    };
+
+    const build = () => {
+      const cols = colCount();
+      if (cols === builtCols) return; // ratio-based -> width-independent
+      builtCols = cols;
+      root.classList.add("is-built");
+      root.style.gridTemplateColumns = `repeat(${cols}, minmax(0, 1fr))`;
+      const groups = partition(cols);
+      const colEls = groups.map((g) => {
+        const c = document.createElement("div");
+        c.className = "gal-col";
+        g.forEach((idx) => c.appendChild(items[idx]));
+        return c;
+      });
+      root.replaceChildren(...colEls);
+    };
+    build();
+    let t: number | undefined;
+    window.addEventListener("resize", () => {
+      window.clearTimeout(t);
+      t = window.setTimeout(build, 150);
     });
   }
 </script>
