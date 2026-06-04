@@ -23,7 +23,7 @@ export const HTML_LANG = en ? "en" : "sk";
 // GA4 — separate property per locale/domain
 export const GA_ID = en ? "G-28K9J0T5EL" : "G-LKVF753T86";
 // Seznam Webmaster (CZ) verification — per domain (empty = no tag rendered)
-export const SEZNAM_WMT = en ? "" : "ZPUK05FT23dhVlvV1hw3xwhyubbhxjNn";
+export const SEZNAM_WMT = en ? "s1CJEMYe1yaBzCvlKQIdEnCZSKAJSOSw" : "ZPUK05FT23dhVlvV1hw3xwhyubbhxjNn";
 
 // --- content selection ---
 export const club = (en ? enClub : skClub) as typeof skClub;
