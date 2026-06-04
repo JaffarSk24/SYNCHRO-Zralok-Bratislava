@@ -10,6 +10,9 @@ dist-en/
 .env.local
 .env.*.local
 
+# Local Claude Code permissions (machine-local, may reference server access)
+.claude/settings.local.json
+
 # Raw source logo photos (large, local only)
 IMG_*.jpg
 457902034*.jpg
