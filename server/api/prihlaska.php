@@ -15,12 +15,15 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     fail(405, 'Method not allowed');
 }
 
-// --- config (absolute path, outside web root) ---
-$cfgPath = '/etc/synchrozralok/secrets.php';
-if (!is_file($cfgPath)) {
+// --- config from .env (outside web root, never committed) ---
+$envPath = '/etc/synchrozralok/.env';
+if (!is_file($envPath)) {
     fail(500, 'Server nie je nakonfigurovaný.');
 }
-$cfg = require $cfgPath;
+$cfg = parse_ini_file($envPath, false, INI_SCANNER_RAW);
+if (!is_array($cfg)) {
+    fail(500, 'Chyba konfigurácie.');
+}
 
 // --- read JSON body ---
 $raw = file_get_contents('php://input');
@@ -60,7 +63,7 @@ if ($token === '') {
 $verify = json_decode((string)httpPost(
     'https://www.google.com/recaptcha/api/siteverify',
     [
-        'secret'   => $cfg['recaptcha_secret'],
+        'secret'   => $cfg['RECAPTCHA_SECRET'],
         'response' => $token,
         'remoteip' => $_SERVER['REMOTE_ADDR'] ?? '',
     ]
@@ -70,10 +73,10 @@ if (empty($verify['success'])) {
 }
 
 // --- send emails via Mailgun ---
-$base   = rtrim($cfg['mailgun_base'], '/') . '/' . $cfg['mailgun_domain'] . '/messages';
-$apiKey = $cfg['mailgun_api_key'];
-$from   = $cfg['from_email'];
-$club   = $cfg['club_email'];
+$base   = rtrim($cfg['MAILGUN_BASE'], '/') . '/' . $cfg['MAILGUN_DOMAIN'] . '/messages';
+$apiKey = $cfg['MAILGUN_API_KEY'];
+$from   = $cfg['FROM_EMAIL'];
+$club   = $cfg['CLUB_EMAIL'];
 
 $esc = static fn(string $s): string => htmlspecialchars($s, ENT_QUOTES, 'UTF-8');
 
