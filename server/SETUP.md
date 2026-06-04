@@ -58,13 +58,12 @@ aj z .com) — teraz sa `prihlaska.php`/`config.php` aktualizujú pri každom me
 - Klubu: predmet „Nová prihláška: …", **Reply-To = e-mail rodiča**.
 - Rodičovi: potvrdenie, **Reply-To = CLUB_EMAIL**.
 
-## DOČASNÉ (na testovanie)
-- `CLUB_EMAIL=9035038@gmail.com` v `/etc/synchrozralok/.env`.
-- Po testoch zmeniť na `synchro.zralok.bratislava@gmail.com`:
+## Príjemca prihlášok (klub)
+- `CLUB_EMAIL=synchro.zralok.bratislava@gmail.com` v `/etc/synchrozralok/.env` (ostrá adresa klubu).
+- Zmena adresy (bez rebuildu/deploya, PHP číta `.env` pri každom requeste):
   ```bash
   ssh root@5.75.136.96
   sed -i 's/^CLUB_EMAIL=.*/CLUB_EMAIL=synchro.zralok.bratislava@gmail.com/' /etc/synchrozralok/.env
-  # netreba reload (PHP číta .env pri každom requeste)
   ```
 
 ## Rotácia kľúčov
