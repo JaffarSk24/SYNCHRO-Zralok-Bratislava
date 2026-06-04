@@ -1,6 +1,6 @@
 ---
 import "../styles/global.css";
-import { club, faq as faqData, t, SITE_URL, ALT_URL, OG_LOCALE, HTML_LANG, LOCALE } from "../i18n";
+import { club, faq as faqData, t, SITE_URL, ALT_URL, OG_LOCALE, HTML_LANG, LOCALE, GA_ID } from "../i18n";
 
 interface Props {
   title?: string;
@@ -145,6 +145,16 @@ const schemaOrg = [
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Google tag (gtag.js) — per-locale GA4 property -->
+    <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}></script>
+    <script is:inline define:vars={{ GA_ID }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){ dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', GA_ID);
+    </script>
+
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
