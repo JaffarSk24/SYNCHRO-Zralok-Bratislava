@@ -84,11 +84,18 @@ $esc = static fn(string $s): string => htmlspecialchars($s, ENT_QUOTES, 'UTF-8')
 
 $siteUrl = $isEn ? 'www.synchrozralok.com' : 'www.synchrozralok.sk';
 
+// Dates in e-mails use the European format DD.MM.YYYY (the form sends ISO yyyy-mm-dd).
+$datumFmt = $datum;
+$dt = DateTime::createFromFormat('Y-m-d', $datum);
+if ($dt instanceof DateTime) {
+    $datumFmt = $dt->format('d.m.Y');
+}
+
 // 1) notification to the club (Reply-To = parent's e-mail)
 if ($isEn) {
     $clubText = "New application to Synchro Žralok Bratislava\n\n"
         . "Child's name: {$dieta}\n"
-        . "Date of birth: {$datum}\n\n"
+        . "Date of birth: {$datumFmt}\n\n"
         . "Parent's name: {$rodic}\n"
         . "E-mail: {$email}\n"
         . "Phone number: {$telefon}\n";
@@ -96,7 +103,7 @@ if ($isEn) {
 } else {
     $clubText = "Nová prihláška do klubu Synchro Žralok Bratislava\n\n"
         . "Meno dieťaťa: {$dieta}\n"
-        . "Dátum narodenia: {$datum}\n\n"
+        . "Dátum narodenia: {$datumFmt}\n\n"
         . "Meno rodiča: {$rodic}\n"
         . "E-mail: {$email}\n"
         . "Telefónne číslo: {$telefon}\n";
@@ -117,7 +124,7 @@ if ($isEn) {
         . "We have received your request and our coaches will contact you soon.\n\n"
         . "Your details:\n"
         . "Child's name: {$dieta}\n"
-        . "Date of birth: {$datum}\n"
+        . "Date of birth: {$datumFmt}\n"
         . "Parent's name: {$rodic}\n"
         . "Phone number: {$telefon}\n\n"
         . "Kind regards,\nthe Synchro Žralok Bratislava team\n{$siteUrl}";
@@ -128,7 +135,7 @@ if ($isEn) {
         . "Vašu žiadosť sme prijali a naši tréneri Vás budú čoskoro kontaktovať.\n\n"
         . "Zadané údaje:\n"
         . "Meno dieťaťa: {$dieta}\n"
-        . "Dátum narodenia: {$datum}\n"
+        . "Dátum narodenia: {$datumFmt}\n"
         . "Meno rodiča: {$rodic}\n"
         . "Telefónne číslo: {$telefon}\n\n"
         . "S pozdravom,\ntím Synchro Žralok Bratislava\n{$siteUrl}";

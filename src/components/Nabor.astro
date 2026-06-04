@@ -170,11 +170,33 @@ const n = t.nabor;
     document.head.appendChild(s);
   }
 
+  // Warm up reCAPTCHA on the first sign of intent (hover/focus/touch on the
+  // button) — NOT on initial page load — so the click opens the modal instantly
+  // instead of janking while Google's script parses.
+  let warmed = false;
+  function warmRecaptcha() {
+    if (warmed) return;
+    warmed = true;
+    ["https://www.google.com", "https://www.gstatic.com"].forEach((href) => {
+      const l = document.createElement("link");
+      l.rel = "preconnect"; l.href = href; l.crossOrigin = "";
+      document.head.appendChild(l);
+    });
+    loadRecaptcha();
+  }
+  ["pointerenter", "focus", "touchstart"].forEach((ev) =>
+    openBtn?.addEventListener(ev, warmRecaptcha, { passive: true })
+  );
+
   function openModal() {
     modal.classList.remove("hidden");
     document.body.style.overflow = "hidden";
-    loadRecaptcha();
-    setTimeout(() => form?.querySelector("input")?.focus(), 50);
+    // Focus first, then load reCAPTCHA off the critical open frame so the
+    // modal animation and field focus never wait on the captcha widget.
+    requestAnimationFrame(() => {
+      form?.querySelector("input")?.focus({ preventScroll: true });
+      setTimeout(loadRecaptcha, 0);
+    });
   }
   function closeModal() {
     modal.classList.add("hidden");
