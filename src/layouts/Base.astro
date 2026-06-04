@@ -1,8 +1,6 @@
 ---
 import "../styles/global.css";
-import club from "../content/club.json";
-import medals from "../content/medals.json";
-import faqData from "../content/faq.json";
+import { club, faq as faqData, t, SITE_URL, ALT_URL, OG_LOCALE, HTML_LANG, LOCALE } from "../i18n";
 
 interface Props {
   title?: string;
@@ -10,16 +8,15 @@ interface Props {
   image?: string;
 }
 const {
-  // Title: mirrors H1 (deti od 5 rokov) + primary keyword + location + brand
-  title = `Synchronizované plávanie pre deti od 5 rokov v Bratislave | SYNCHRO Žralok`,
-  // Description: action + local + USP, 155 chars
-  description = `Klub akvabeliek v Bratislave – tréningy od 5 rokov, Devínska & Karlova Ves. Letné kempy 2026 od 189 €. Prvý tréning nezáväzne. Prihlás dcérku ešte dnes!`,
+  title = t.seo.title,
+  description = t.seo.description,
   image = "/og-image.png",
 } = Astro.props;
 
-const siteUrl = "https://synchrozralok.com";
+const siteUrl = SITE_URL;
 const canonical = `${siteUrl}${Astro.url.pathname}`;
 const ogImage = `${siteUrl}${image}`;
+const inLanguage = LOCALE === "en" ? "en-GB" : "sk-SK";
 
 // Schema.org JSON-LD
 const schemaOrg = [
@@ -66,7 +63,7 @@ const schemaOrg = [
     "@id": `${siteUrl}/#website`,
     url: siteUrl,
     name: club.name,
-    inLanguage: "sk-SK",
+    inLanguage,
     publisher: { "@id": `${siteUrl}/#organization` },
   },
   // BreadcrumbList — helps sitelinks
@@ -120,39 +117,30 @@ const schemaOrg = [
       availability: "https://schema.org/InStock",
       url: "https://plaveckaakademia.sk/kurzy/pre-deti/camp-akvabelky",
     },
-    description: "Letný kemp synchronizovaného plávania pre dievčatá 5–12 rokov. Tréningy vo vode aj na suchu, nové priateľstvá a radosť z pohybu.",
+    description: t.seo.campDesc,
   },
 ];
 ---
 
 <!doctype html>
-<html lang="sk">
+<html lang={HTML_LANG}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    <!-- hreflang: SK on .sk, EN on .com, both point to the same path -->
+    <link rel="alternate" hreflang="sk" href={`https://synchrozralok.sk${Astro.url.pathname}`} />
+    <link rel="alternate" hreflang="en" href={`https://synchrozralok.com${Astro.url.pathname}`} />
+    <link rel="alternate" hreflang="x-default" href={`https://synchrozralok.com${Astro.url.pathname}`} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="theme-color" content="#050f1a" />
 
     <!-- SEO -->
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
     <!-- 2026 SEO: long-tail + local + conversational + voice-search queries -->
-    <meta name="keywords" content="
-      synchronizované plávanie Bratislava,
-      akvabelky Bratislava,
-      artistické plávanie deti Bratislava,
-      plávanie pre dievčatá od 5 rokov,
-      letný kemp plávanie 2026 Bratislava,
-      Synchro Žralok Bratislava,
-      kde sa prihlásiť na synchronizované plávanie Bratislava,
-      plávanie pre deti Devínska Nová Ves,
-      akvabely kemp 2026,
-      synchronizované plávanie začiatočníčky,
-      club artistique natation Bratislava,
-      synchronized swimming club Bratislava
-    " />
+    <meta name="keywords" content={t.seo.keywords} />
     <meta name="author" content="SYNCHRO Žralok Bratislava" />
 
     <!-- Open Graph / Facebook -->
@@ -164,8 +152,8 @@ const schemaOrg = [
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="SYNCHRO Žralok Bratislava — klub synchronizovaného plávania" />
-    <meta property="og:locale" content="sk_SK" />
+    <meta property="og:image:alt" content={t.seo.ogAlt} />
+    <meta property="og:locale" content={OG_LOCALE} />
 
     <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />

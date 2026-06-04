@@ -1,7 +1,7 @@
 ---
-// Highlight: U12 (mladšie žiačky) won GOLD in every discipline at
-// Majstrovstvá Slovenska & Synchrostars 2026.
-const disciplines = ["Povinné figúry", "Sólo", "Duo", "Tím", "Kombinovaná zostava"];
+// Highlight: U12 won GOLD in every discipline at the 2026 Slovak Championships.
+import { t } from "../i18n";
+const disciplines = t.champions.disciplines;
 ---
 
 <section id="majsterky" class="relative bg-abyss pb-20 md:pb-28">
@@ -41,16 +41,12 @@ const disciplines = ["Povinné figúry", "Sólo", "Duo", "Tím", "Kombinovaná z
         <div>
           <p class="eyebrow mb-3" style="color:var(--color-gold)">
             <span class="w-6 hairline" style="background:linear-gradient(90deg,transparent,var(--color-gold),transparent)"></span>
-            Majsterky Slovenska 2026
+            {t.champions.eyebrow}
           </p>
           <h2 class="text-2xl md:text-4xl font-bold leading-tight">
-            U12 – zlato vo <span class="champ-hl">všetkých disciplínach</span>
+            {t.champions.h2pre} <span class="champ-hl">{t.champions.h2hl}</span>
           </h2>
-          <p class="mt-4 text-muted text-lg max-w-2xl">
-            Obrovská gratulácia našim <strong class="text-ink">mladším žiačkam (U12)</strong> – na
-            Majstrovstvách Slovenska &amp; Synchrostars 2026 vybojovali <strong class="text-ink">zlato
-            v každej jednej disciplíne</strong>. Päť štartov, päť zlatých! 🥇
-          </p>
+          <p class="mt-4 text-muted text-lg max-w-2xl" set:html={t.champions.pHtml}></p>
 
           <div class="mt-6 flex flex-wrap gap-2.5">
             {disciplines.map((d) => (

@@ -1,5 +1,5 @@
 ---
-import events from "../content/events.json";
+import { events, t } from "../i18n";
 const c = events.camps;
 ---
 
@@ -9,7 +9,7 @@ const c = events.camps;
   </div>
   <div class="container-x relative grid lg:grid-cols-[0.95fr_1.05fr] gap-10 items-center">
     <div data-reveal>
-      <p class="eyebrow mb-4"><span class="w-6 hairline"></span> Podujatia</p>
+      <p class="eyebrow mb-4"><span class="w-6 hairline"></span> {t.camps.eyebrow}</p>
       <h2 class="text-3xl md:text-5xl font-bold leading-[1.02]">{c.title}</h2>
       <p class="mt-5 text-muted text-lg leading-relaxed">{c.description}</p>
 
@@ -40,7 +40,7 @@ const c = events.camps;
       </div>
       <div class="hairline my-5"></div>
 
-      <h3 class="font-display font-semibold text-lg mb-4">Termíny leto 2026</h3>
+      <h3 class="font-display font-semibold text-lg mb-4">{t.camps.datesH}</h3>
       <ul class="space-y-3">
         {c.sessions.map((s, i) => (
           <li class="flex items-center gap-4 p-4 rounded-xl bg-white/[0.03] border border-white/5 hover:border-cyan/30 transition-colors">
@@ -52,7 +52,7 @@ const c = events.camps;
           </li>
         ))}
       </ul>
-      <p class="mt-5 text-xs text-muted/80">Tréningy vo vode aj na suchu pod vedením skúsených trénerov. Vhodné pre začiatočníčky aj pokročilé.</p>
+      <p class="mt-5 text-xs text-muted/80">{t.camps.note}</p>
     </div>
   </div>
 </section>

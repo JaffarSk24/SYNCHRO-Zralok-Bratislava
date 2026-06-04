@@ -1,20 +1,15 @@
 ---
-import medals from "../content/medals.json";
+import { medals, t } from "../i18n";
 const order = ["U8", "U10", "U12", "U15"] as const;
-const groupMeta: Record<string, { age: string; note: string }> = {
-  U8: { age: "do 8 rokov", note: "dievčatá do 8 rokov" },
-  U10: { age: "do 10 rokov", note: "dievčatá do 10 rokov" },
-  U12: { age: "do 12 rokov", note: "mladšie žiačky" },
-  U15: { age: "do 15 rokov", note: "staršie žiačky" },
-};
+const groupMeta = t.titles.groupMeta;
 const ct = medals.clubTotal;
 type Tally = { gold: number; silver: number; bronze: number; total: number };
 const groups = medals.groups as Record<string, Tally>;
 
 const medalRows = (g: Tally) => [
-  { kind: "gold", label: "zlato", n: g.gold, cls: "text-gold", grad: "linear-gradient(135deg,#fde68a,#d4a017)" },
-  { kind: "silver", label: "striebro", n: g.silver, cls: "text-silver", grad: "linear-gradient(135deg,#f1f5f9,#94a3b8)" },
-  { kind: "bronze", label: "bronz", n: g.bronze, cls: "text-bronze", grad: "linear-gradient(135deg,#f0b27a,#b06a2c)" },
+  { kind: "gold", label: t.medalWords.gold, n: g.gold, cls: "text-gold", grad: "linear-gradient(135deg,#fde68a,#d4a017)" },
+  { kind: "silver", label: t.medalWords.silver, n: g.silver, cls: "text-silver", grad: "linear-gradient(135deg,#f1f5f9,#94a3b8)" },
+  { kind: "bronze", label: t.medalWords.bronze, n: g.bronze, cls: "text-bronze", grad: "linear-gradient(135deg,#f0b27a,#b06a2c)" },
 ];
 ---
 
@@ -24,26 +19,24 @@ const medalRows = (g: Tally) => [
   </div>
   <div class="container-x relative">
     <div class="max-w-2xl" data-reveal>
-      <p class="eyebrow mb-4"><span class="w-6 hairline"></span> Naše tituly</p>
-      <h2 class="text-3xl md:text-4xl font-bold leading-tight">Medailová bilancia podľa kategórií</h2>
-      <p class="mt-4 text-muted text-lg">
-        Prehľad medailí, ktoré naše dievčatá vybojovali na domácich aj medzinárodných súťažiach – rozdelený podľa vekových kategórií.
-      </p>
+      <p class="eyebrow mb-4"><span class="w-6 hairline"></span> {t.titles.eyebrow}</p>
+      <h2 class="text-3xl md:text-4xl font-bold leading-tight">{t.titles.h2}</h2>
+      <p class="mt-4 text-muted text-lg">{t.titles.intro}</p>
     </div>
 
     <!-- club total banner -->
     <div class="mt-10 card p-6 md:p-7 flex flex-col sm:flex-row items-center gap-6 justify-between" data-reveal>
       <div>
-        <div class="text-sm text-muted uppercase tracking-widest">Spolu pre klub</div>
+        <div class="text-sm text-muted uppercase tracking-widest">{t.titles.clubTotal}</div>
         <div class="font-display font-bold text-4xl md:text-5xl mt-1">
-          {ct.total} <span class="text-muted text-2xl md:text-3xl font-semibold">medailí</span>
+          {ct.total} <span class="text-muted text-2xl md:text-3xl font-semibold">{t.titles.medals}</span>
         </div>
       </div>
       <div class="flex items-center gap-6 md:gap-9">
         {[["gold",ct.gold,"#d4a017"],["silver",ct.silver,"#94a3b8"],["bronze",ct.bronze,"#b06a2c"]].map(([k,n,c]) => (
           <div class="text-center">
             <div class="mx-auto w-11 h-11 rounded-full grid place-items-center font-bold text-abyss" style={`background:${k==="gold"?"linear-gradient(135deg,#fde68a,#d4a017)":k==="silver"?"linear-gradient(135deg,#f1f5f9,#94a3b8)":"linear-gradient(135deg,#f0b27a,#b06a2c)"}`}>{n}</div>
-            <div class="text-xs text-muted mt-2 capitalize">{k==="gold"?"zlato":k==="silver"?"striebro":"bronz"}</div>
+            <div class="text-xs text-muted mt-2 capitalize">{k==="gold"?t.medalWords.gold:k==="silver"?t.medalWords.silver:t.medalWords.bronze}</div>
           </div>
         ))}
       </div>
@@ -77,7 +70,7 @@ const medalRows = (g: Tally) => [
 
               <div class="hairline my-4"></div>
               <div class="flex items-center justify-between">
-                <span class="text-xs uppercase tracking-wider text-muted">Spolu</span>
+                <span class="text-xs uppercase tracking-wider text-muted">{t.titles.total}</span>
                 <span class="font-display font-bold text-lg">{g.total}</span>
               </div>
             </div>
@@ -87,9 +80,8 @@ const medalRows = (g: Tally) => [
     </div>
 
     <p class="mt-6 text-xs text-muted/70 max-w-2xl" data-reveal>
-      {medals.note} Okrem toho dievčatá získali ďalšie medaily vo výkonnostných úrovniach
-      (Level&nbsp;2/3): {medals.levelBased.gold}× zlato, {medals.levelBased.silver}× striebro,
-      {medals.levelBased.bronze}× bronz.
+      {t.titles.note} {t.titles.levelIntro} {medals.levelBased.gold}× {t.medalWords.gold},
+      {medals.levelBased.silver}× {t.medalWords.silver}, {medals.levelBased.bronze}× {t.medalWords.bronze}.
     </p>
   </div>
 </section>

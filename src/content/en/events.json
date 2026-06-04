@@ -1,0 +1,25 @@
+{
+  "camps": {
+    "title": "Summer aquabelle camps 2026",
+    "subtitle": "Become an aquabelle!",
+    "description": "Summer, water, music and smiles. We invite all girls to experience unforgettable summer camps – a mix of movement, elegance, team energy and the joy of water. The camps are suitable for beginners and advanced aquabelles alike.",
+    "audience": "Girls aged 5 – 12",
+    "location": "Bratislava – Devínska",
+    "schedule": "Monday – Friday, 8:00 – 16:30",
+    "price": "189 €",
+    "priceNote": "/ session",
+    "includes": [
+      "Training in the water and on dry land",
+      "Improving technique, flexibility and coordination",
+      "Practising figures and choreography to music",
+      "New friendships and shared experiences"
+    ],
+    "sessions": [
+      { "label": "Session 1", "dates": "13 – 17 July 2026" },
+      { "label": "Session 2", "dates": "20 – 24 July 2026" },
+      { "label": "Session 3", "dates": "3 – 8 August 2026" }
+    ],
+    "ctaUrl": "https://plaveckaakademia.sk/kurzy/pre-deti/camp-akvabelky?stredisko%255B0%255D=Dev%25C3%25ADnska%23terminy",
+    "ctaLabel": "Camp application"
+  }
+}

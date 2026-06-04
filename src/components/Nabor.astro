@@ -1,8 +1,10 @@
 ---
 // No key values in the static build. The public reCAPTCHA site key is fetched
 // at runtime from the server (which reads it from a non-committed env file).
+import { t, LOCALE } from "../i18n";
 const ENDPOINT = "/api/prihlaska.php";
 const CONFIG_URL = "/api/config.php";
+const n = t.nabor;
 ---
 
 <section id="nabor" class="relative bg-deep py-20 md:py-28 overflow-hidden">
@@ -11,22 +13,16 @@ const CONFIG_URL = "/api/config.php";
   </div>
   <div class="container-x relative">
     <div class="card p-8 md:p-12 max-w-3xl mx-auto text-center" data-reveal>
-      <p class="eyebrow justify-center mb-4"><span class="w-6 hairline"></span> Nábor <span class="w-6 hairline"></span></p>
-      <h2 class="text-3xl md:text-5xl font-bold leading-tight">Staň sa akvabelkou!</h2>
+      <p class="eyebrow justify-center mb-4"><span class="w-6 hairline"></span> {n.eyebrow} <span class="w-6 hairline"></span></p>
+      <h2 class="text-3xl md:text-5xl font-bold leading-tight">{n.h2}</h2>
 
-      <p class="mt-5 text-muted text-lg leading-relaxed">
-        Miluješ vodu, pohyb a zábavu? Príď objaviť čaro synchronizovaného plávania, kde sa spája
-        plávanie, tanec, gymnastika a hudba. Nájdeš u nás nové kamarátky, zažiješ množstvo
-        nezabudnuteľných zážitkov a naučíš sa zručnosti, ktoré ti zostanú na celý život.
-      </p>
-      <p class="mt-4 text-muted text-lg leading-relaxed">
-        Pridaj sa k úspešnému tímu Synchro Žralok a zaži s nami radosť z pohybu vo vode! 🦈💙
-      </p>
+      <p class="mt-5 text-muted text-lg leading-relaxed">{n.p1}</p>
+      <p class="mt-4 text-muted text-lg leading-relaxed">{n.p2}</p>
 
       <div class="mt-8 flex justify-center">
         <button id="prihlaska-open" type="button" class="btn btn-primary">
           <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h6"/></svg>
-          Prihlasovací formulár
+          {n.openBtn}
         </button>
       </div>
     </div>
@@ -36,33 +32,33 @@ const CONFIG_URL = "/api/config.php";
   <div id="prihlaska-modal" class="nbr-modal hidden" role="dialog" aria-modal="true" aria-labelledby="prihlaska-title">
     <div class="nbr-backdrop" data-close></div>
     <div class="nbr-card" role="document">
-      <button class="nbr-x" type="button" data-close aria-label="Zavrieť">
+      <button class="nbr-x" type="button" data-close aria-label={n.close}>
         <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
       </button>
 
       <div id="prihlaska-view-form">
-        <h3 id="prihlaska-title" class="font-display text-2xl font-bold">Prihlasovací formulár</h3>
-        <p class="text-muted text-sm mt-1">Vyplňte údaje a my sa vám čoskoro ozveme.</p>
+        <h3 id="prihlaska-title" class="font-display text-2xl font-bold">{n.formTitle}</h3>
+        <p class="text-muted text-sm mt-1">{n.formSub}</p>
 
         <form id="prihlaska-form" class="mt-5 space-y-3.5" novalidate>
           <label class="nbr-field">
-            <span>Meno dieťaťa</span>
+            <span>{n.fChild}</span>
             <input name="dieta_meno" type="text" required autocomplete="off" autocapitalize="words" enterkeyhint="next" />
           </label>
           <label class="nbr-field">
-            <span>Dátum narodenia</span>
+            <span>{n.fDob}</span>
             <input name="datum" type="date" required />
           </label>
           <label class="nbr-field">
-            <span>Meno rodiča</span>
+            <span>{n.fParent}</span>
             <input name="rodic_meno" type="text" required autocomplete="name" autocapitalize="words" enterkeyhint="next" />
           </label>
           <label class="nbr-field">
-            <span>E-mail</span>
+            <span>{n.fEmail}</span>
             <input name="email" type="email" required autocomplete="email" inputmode="email" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="next" />
           </label>
           <label class="nbr-field">
-            <span>Telefónne číslo</span>
+            <span>{n.fPhone}</span>
             <input name="telefon" type="tel" required autocomplete="tel" inputmode="tel" enterkeyhint="done" />
           </label>
 
@@ -73,7 +69,7 @@ const CONFIG_URL = "/api/config.php";
 
           <p id="prihlaska-error" class="hidden text-sm" style="color:#fca5a5"></p>
 
-          <button id="prihlaska-submit" type="submit" class="btn btn-primary w-full !justify-center mt-1">Odoslať</button>
+          <button id="prihlaska-submit" type="submit" class="btn btn-primary w-full !justify-center mt-1">{n.submit}</button>
         </form>
       </div>
 
@@ -81,12 +77,9 @@ const CONFIG_URL = "/api/config.php";
         <div class="mx-auto w-14 h-14 rounded-full grid place-items-center mb-4" style="background:color-mix(in srgb,var(--color-cyan) 16%, transparent);color:var(--color-cyan)">
           <svg viewBox="0 0 24 24" class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
         </div>
-        <h3 class="font-display text-2xl font-bold">Prihlášku sme prijali!</h3>
-        <p class="text-muted mt-3 leading-relaxed">
-          Ďakujeme. Vašu prihlášku sme úspešne dostali – naši tréneri vás budú čoskoro
-          kontaktovať na uvedených údajoch.
-        </p>
-        <button type="button" data-close class="btn btn-ghost mt-6 !justify-center">Zavrieť</button>
+        <h3 class="font-display text-2xl font-bold">{n.okTitle}</h3>
+        <p class="text-muted mt-3 leading-relaxed">{n.okText}</p>
+        <button type="button" data-close class="btn btn-ghost mt-6 !justify-center">{n.close}</button>
       </div>
     </div>
   </div>
@@ -133,7 +126,7 @@ const CONFIG_URL = "/api/config.php";
   .nbr-hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
 </style>
 
-<script define:vars={{ ENDPOINT, CONFIG_URL }}>
+<script define:vars={{ ENDPOINT, CONFIG_URL, LOCALE, MSG: { errRobot: n.errRobot, errGeneric: n.errGeneric, errConn: n.errConn, submit: n.submit, submitting: n.submitting } }}>
   const modal = document.getElementById("prihlaska-modal");
   const openBtn = document.getElementById("prihlaska-open");
   const form = document.getElementById("prihlaska-form");
@@ -160,7 +153,7 @@ const CONFIG_URL = "/api/config.php";
   function renderRecaptcha() {
     if (widgetId !== null || !siteKey) return;
     if (!(window.grecaptcha && window.grecaptcha.render)) return;
-    widgetId = window.grecaptcha.render("recaptcha-box", { sitekey: siteKey, hl: "sk" });
+    widgetId = window.grecaptcha.render("recaptcha-box", { sitekey: siteKey, hl: LOCALE });
   }
   // lazy-load reCAPTCHA only when the modal first opens
   async function loadRecaptcha() {
@@ -172,7 +165,7 @@ const CONFIG_URL = "/api/config.php";
     recaptchaLoading = true;
     window.__onRecaptchaLoad = renderRecaptcha;
     const s = document.createElement("script");
-    s.src = "https://www.google.com/recaptcha/api.js?onload=__onRecaptchaLoad&render=explicit&hl=sk";
+    s.src = "https://www.google.com/recaptcha/api.js?onload=__onRecaptchaLoad&render=explicit&hl=" + LOCALE;
     s.async = true; s.defer = true;
     document.head.appendChild(s);
   }
@@ -211,7 +204,7 @@ const CONFIG_URL = "/api/config.php";
     if (!form.checkValidity()) { form.reportValidity(); return; }
 
     const token = window.grecaptcha ? window.grecaptcha.getResponse(widgetId ?? undefined) : "";
-    if (!token) { showError("Potvrďte, prosím, že nie ste robot."); return; }
+    if (!token) { showError(MSG.errRobot); return; }
 
     const payload = {
       dieta_meno: form.dieta_meno.value.trim(),
@@ -219,12 +212,13 @@ const CONFIG_URL = "/api/config.php";
       rodic_meno: form.rodic_meno.value.trim(),
       email: form.email.value.trim(),
       telefon: form.telefon.value.trim(),
+      lang: LOCALE,
       "g-recaptcha-response": token,
     };
 
     submitBtn.disabled = true;
     const origText = submitBtn.textContent;
-    submitBtn.textContent = "Odosielam…";
+    submitBtn.textContent = MSG.submitting;
     try {
       const res = await fetch(ENDPOINT, {
         method: "POST",
@@ -236,11 +230,11 @@ const CONFIG_URL = "/api/config.php";
         viewForm.classList.add("hidden");
         viewOk.classList.remove("hidden");
       } else {
-        showError(data.error || "Niečo sa pokazilo. Skúste to prosím znova.");
+        showError(data.error || MSG.errGeneric);
         if (window.grecaptcha && widgetId !== null) window.grecaptcha.reset(widgetId);
       }
     } catch {
-      showError("Spojenie zlyhalo. Skúste to prosím znova.");
+      showError(MSG.errConn);
       if (window.grecaptcha && widgetId !== null) window.grecaptcha.reset(widgetId);
     } finally {
       submitBtn.disabled = false;

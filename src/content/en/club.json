@@ -1,0 +1,28 @@
+{
+  "name": "SYNCHRO Žralok Bratislava",
+  "shortName": "Synchro Žralok",
+  "tagline": "A synchronised swimming club for children",
+  "city": "Bratislava, Slovakia",
+  "intro": "We are a synchronised (artistic) swimming club from Bratislava. We combine swimming, gymnastics, dance and music into one beautiful sport – teaching girls discipline, elegance and team spirit from an early age.",
+  "instagram": "https://www.instagram.com/synchro.zralok.bratislava/",
+  "instagramHandle": "@synchro.zralok.bratislava",
+  "email": "synchro.zralok.bratislava@gmail.com",
+  "phone": "+421 908 779 819",
+  "facilities": "Training takes place in Bratislava.",
+  "venues": [
+    { "name": "Plavecká Akadémia", "area": "Devínska Nová Ves" },
+    { "name": "IUVENTA", "area": "Karlova Ves" }
+  ],
+  "disciplines": [
+    "Compulsory figures",
+    "Solo",
+    "Duo / Duet",
+    "Team",
+    "Combination (combo)"
+  ],
+  "stats": [
+    { "value": "U8 – U15", "label": "age categories" },
+    { "value": "SK · HU · CZ", "label": "competition countries" },
+    { "value": "from age 5", "label": "you can start" }
+  ]
+}
