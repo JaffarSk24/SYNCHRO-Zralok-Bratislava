@@ -98,13 +98,13 @@ $ok1 = mailgunSend($base, $apiKey, [
 // 2) confirmation to the parent (Reply-To = club's gmail)
 $clientText = "Dobrý deň,\n\n"
     . "ďakujeme za Vašu prihlášku do klubu Synchro Žralok Bratislava. "
-    . "Vašu prihlášku sme prijali a naši tréneri Vás budú čoskoro kontaktovať.\n\n"
+    . "Vašu žiadosť sme prijali a naši tréneri Vás budú čoskoro kontaktovať.\n\n"
     . "Zadané údaje:\n"
     . "Meno dieťaťa: {$dieta}\n"
     . "Dátum narodenia: {$datum}\n"
     . "Meno rodiča: {$rodic}\n"
     . "Telefónne číslo: {$telefon}\n\n"
-    . "S pozdravom,\ntím Synchro Žralok Bratislava";
+    . "S pozdravom,\ntím Synchro Žralok Bratislava\nwww.synchrozralok.sk";
 $ok2 = mailgunSend($base, $apiKey, [
     'from'       => $from,
     'to'         => $email,
