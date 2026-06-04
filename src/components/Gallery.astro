@@ -1,6 +1,14 @@
 ---
 import { gallery, sustredenia, club, t } from "../i18n";
 const items = gallery.slice(0, 13);
+
+// Strip Instagram hashtags (#…) and @mentions from captions — they're noise for
+// readers and confuse language detectors (lots of English #tags on a SK page).
+const cleanCaption = (s?: string) =>
+  (s ?? "")
+    .replace(/[#@][\p{L}\p{N}_.]+/gu, "")
+    .replace(/\s+/g, " ")
+    .trim();
 ---
 
 <section id="galeria" class="relative bg-abyss py-20 md:py-28">
@@ -28,14 +36,14 @@ const items = gallery.slice(0, 13);
         >
           <img
             src={g.src}
-            alt={g.caption || club.name}
+            alt={cleanCaption(g.caption) || club.name}
             width={g.w}
             height={g.h}
             loading="lazy"
             class="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-105"
           />
           <span class="absolute inset-0 bg-gradient-to-t from-abyss/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></span>
-          <span class="absolute bottom-3 left-3 right-3 text-xs text-ink/90 opacity-0 group-hover:opacity-100 transition-opacity line-clamp-2">{g.caption}</span>
+          <span class="absolute bottom-3 left-3 right-3 text-xs text-ink/90 opacity-0 group-hover:opacity-100 transition-opacity line-clamp-2">{cleanCaption(g.caption)}</span>
         </a>
       ))}
     </div>
