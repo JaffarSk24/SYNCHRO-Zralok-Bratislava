@@ -1,14 +1,13 @@
 ---
-import coaches from "../content/coaches.json";
-import club from "../content/club.json";
+import { coaches, club, t } from "../i18n";
 ---
 
 <section id="treneri" class="relative bg-deep py-20 md:py-28">
   <div class="container-x">
     <div class="max-w-2xl" data-reveal>
-      <p class="eyebrow mb-4"><span class="w-6 hairline"></span> Trénerky</p>
-      <h2 class="text-3xl md:text-4xl font-bold leading-tight">Ľudia za úspechmi</h2>
-      <p class="mt-4 text-muted text-lg">Náš tím vedie dievčatá s láskou k vode a zmyslom pre detail.</p>
+      <p class="eyebrow mb-4"><span class="w-6 hairline"></span> {t.coaches.eyebrow}</p>
+      <h2 class="text-3xl md:text-4xl font-bold leading-tight">{t.coaches.h2}</h2>
+      <p class="mt-4 text-muted text-lg">{t.coaches.sub}</p>
     </div>
 
     <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -17,7 +16,7 @@ import club from "../content/club.json";
           {co.photo
             ? <img src={co.photo} alt={co.name} width="56" height="56" loading="lazy" class="flex-none w-14 h-14 rounded-full object-cover ring-2 ring-cyan/30" />
             : <div class="flex-none w-14 h-14 rounded-full grid place-items-center font-display font-bold text-xl text-abyss" style="background:linear-gradient(135deg,var(--color-cyan),var(--color-wave))">
-                {co.name === "Tím tréneriek"
+                {(co as any).team
                   ? "👥"
                   : co.name.split(" ").map((n: string) => n[0]).join("")}
               </div>

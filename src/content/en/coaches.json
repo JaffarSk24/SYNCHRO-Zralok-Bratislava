@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Martina Nela",
+    "role": "Head coach",
+    "instagram": "https://www.instagram.com/martina.nela/",
+    "instagramHandle": "@martina.nela",
+    "photo": "/coaches/martina-nela.webp",
+    "bio": "Leads the club's training programme and guides the girls to medal success at home and abroad. Direct contact for joining the club.",
+    "contact": true
+  },
+  {
+    "name": "Coaching team",
+    "role": "Aquabelle coaches",
+    "instagram": null,
+    "instagramHandle": null,
+    "team": true,
+    "bio": "Synchro Žralok has a team of experienced coaches who guide the girls across all age categories. With their knowledge, experience and individual approach they help the athletes progress and develop their talent. All groups train in Bratislava – in Devínska Nová Ves and Karlova Ves.",
+    "contact": false
+  }
+]

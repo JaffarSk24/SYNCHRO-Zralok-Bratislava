@@ -1,12 +1,11 @@
 ---
-import competitions from "../content/competitions.json";
-const months = ["jan", "feb", "mar", "apr", "máj", "jún", "júl", "aug", "sep", "okt", "nov", "dec"];
+import { competitions, locations, t } from "../i18n";
+const months = t.months;
 const fmt = (d: string) => {
   const [y, m] = d.split("-").map(Number);
   return `${months[m - 1]} ${y}`;
 };
-const flag: Record<string, string> = { Slovensko: "🇸🇰", Maďarsko: "🇭🇺", Česko: "🇨🇿" };
-// Show only the 8 most recent by default; older ones collapse under "Pozrieť viac".
+// Show only the 8 most recent by default; older ones collapse under the "view more" button.
 const VISIBLE = 8;
 const hasMore = competitions.length > VISIBLE;
 ---
@@ -14,11 +13,9 @@ const hasMore = competitions.length > VISIBLE;
 <section id="sutaze" class="relative bg-deep py-20 md:py-28">
   <div class="container-x relative">
     <div class="max-w-2xl" data-reveal>
-      <p class="eyebrow mb-4"><span class="w-6 hairline"></span> Súťaže</p>
-      <h2 class="text-3xl md:text-4xl font-bold leading-tight">Výsledky z pretekov</h2>
-      <p class="mt-4 text-muted text-lg">
-        Najnovšie štarty našich žralokýň doma aj v zahraničí. Sezóna pokračuje – sledujte nás na Instagrame.
-      </p>
+      <p class="eyebrow mb-4"><span class="w-6 hairline"></span> {t.competitions.eyebrow}</p>
+      <h2 class="text-3xl md:text-4xl font-bold leading-tight">{t.competitions.h2}</h2>
+      <p class="mt-4 text-muted text-lg">{t.competitions.intro}</p>
     </div>
 
     <div class="mt-10 relative">
@@ -32,14 +29,14 @@ const hasMore = competitions.length > VISIBLE;
               <div class="card p-5 hover:border-cyan/40 transition-colors">
                 <div class="flex items-center justify-between gap-3">
                   <span class="text-xs font-semibold uppercase tracking-wider text-cyan">{fmt(c.date)}</span>
-                  {c.location && <span class="text-sm text-muted">{flag[c.location] ?? ""} {c.location}</span>}
+                  {c.location && <span class="text-sm text-muted">{locations[c.location]?.flag ?? ""} {locations[c.location]?.label ?? c.location}</span>}
                 </div>
                 <h3 class="mt-2 font-display font-semibold text-lg leading-snug">{c.title}</h3>
                 <div class="mt-3 flex items-center gap-4 text-sm">
                   {c.medals.gold > 0 && <span class="flex items-center gap-1.5"><span class="w-4 h-4 rounded-full" style="background:linear-gradient(135deg,#fde68a,#d4a017)"></span>{c.medals.gold}</span>}
                   {c.medals.silver > 0 && <span class="flex items-center gap-1.5"><span class="w-4 h-4 rounded-full" style="background:linear-gradient(135deg,#f1f5f9,#94a3b8)"></span>{c.medals.silver}</span>}
                   {c.medals.bronze > 0 && <span class="flex items-center gap-1.5"><span class="w-4 h-4 rounded-full" style="background:linear-gradient(135deg,#f0b27a,#b06a2c)"></span>{c.medals.bronze}</span>}
-                  {c.permalink && <a href={c.permalink} target="_blank" rel="noopener" class="ml-auto text-muted hover:text-cyan transition-colors">Pozrieť →</a>}
+                  {c.permalink && <a href={c.permalink} target="_blank" rel="noopener" class="ml-auto text-muted hover:text-cyan transition-colors">{t.competitions.view} →</a>}
                 </div>
               </div>
             </div>
@@ -50,7 +47,7 @@ const hasMore = competitions.length > VISIBLE;
 
     {hasMore && (
       <div class="mt-8 flex justify-center">
-        <button id="comp-more-btn" class="btn btn-ghost">Pozrieť viac</button>
+        <button id="comp-more-btn" class="btn btn-ghost">{t.competitions.more}</button>
       </div>
     )}
   </div>

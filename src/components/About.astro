@@ -1,17 +1,15 @@
 ---
-import club from "../content/club.json";
+import { club, t } from "../i18n";
 import LegsIcon from "./LegsIcon.astro";
 ---
 
 <section id="o-klube" class="relative bg-deep py-20 md:py-28">
   <div class="container-x grid md:grid-cols-2 gap-12 items-start">
     <div data-reveal>
-      <p class="eyebrow mb-4"><span class="w-6 hairline"></span> O klube</p>
-      <h2 class="text-3xl md:text-4xl font-bold leading-tight">
-        Plávanie, gymnastika, tanec a&nbsp;hudba v&nbsp;jednom
-      </h2>
-      <p class="mt-5 text-muted text-lg leading-relaxed">Synchronizované plávanie je viac než šport – je to elegancia, sila a tímová súhra v jednom. Dievčatá sa učia ovládať svoje telo vo vode, vnímať hudbu, spolupracovať a budovať vzájomnú dôveru – hodnoty, ktoré využijú nielen v športe, ale aj v živote.</p>
-      <p class="mt-4 text-muted leading-relaxed">{club.facilities} Začať s nami môžu dievčatá už od 5 rokov – od úplných začiatočníčok až po pretekárky reprezentujúce klub v zahraničí.</p>
+      <p class="eyebrow mb-4"><span class="w-6 hairline"></span> {t.about.eyebrow}</p>
+      <h2 class="text-3xl md:text-4xl font-bold leading-tight" set:html={t.about.h2}></h2>
+      <p class="mt-5 text-muted text-lg leading-relaxed">{t.about.p1}</p>
+      <p class="mt-4 text-muted leading-relaxed">{club.facilities} {t.about.startInfo}</p>
 
       <div class="mt-8 grid grid-cols-3 gap-4">
         {club.stats.map((s: { value: string; label: string; sub?: string }) => (
@@ -28,7 +26,7 @@ import LegsIcon from "./LegsIcon.astro";
         <!-- Background watermark icon to fill empty space elegantly -->
         <LegsIcon class="absolute right-6 md:right-8 top-[80px] md:top-[88px] w-32 h-32 md:w-36 md:h-36 text-cyan opacity-[0.08] pointer-events-none hidden sm:block" />
 
-        <h3 class="font-display font-semibold text-lg relative z-10">Disciplíny, v ktorých súťažíme</h3>
+        <h3 class="font-display font-semibold text-lg relative z-10">{t.about.disciplinesH}</h3>
         <ul class="mt-5 space-y-3 relative z-10">
           {club.disciplines.map((d) => (
             <li class="flex items-center gap-3">
@@ -40,9 +38,7 @@ import LegsIcon from "./LegsIcon.astro";
           ))}
         </ul>
         <div class="hairline my-6 relative z-10"></div>
-        <p class="text-sm text-muted relative z-10">
-          Synchronizované (artistické) plávanie rozvíja silu, ohybnosť, hudobné cítenie aj tímovú spoluprácu – a&nbsp;predovšetkým prináša deťom radosť z&nbsp;vody.
-        </p>
+        <p class="text-sm text-muted relative z-10" set:html={t.about.note}></p>
       </div>
     </div>
   </div>

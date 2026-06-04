@@ -1,5 +1,5 @@
 ---
-import club from "../content/club.json";
+import { club, t } from "../i18n";
 import Logo from "./Logo.astro";
 const year = new Date().getFullYear();
 ---
@@ -15,17 +15,17 @@ const year = new Date().getFullYear();
     </div>
 
     <nav class="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm text-muted">
-      <a href="#o-klube" class="hover:text-cyan transition-colors">O klube</a>
-      <a href="#tituly" class="hover:text-cyan transition-colors">Tituly</a>
-      <a href="#sutaze" class="hover:text-cyan transition-colors">Súťaže</a>
-      <a href="#kempy" class="hover:text-cyan transition-colors">Kempy</a>
+      <a href="#o-klube" class="hover:text-cyan transition-colors">{t.nav.about}</a>
+      <a href="#tituly" class="hover:text-cyan transition-colors">{t.nav.titles}</a>
+      <a href="#sutaze" class="hover:text-cyan transition-colors">{t.competitions.eyebrow}</a>
+      <a href="#kempy" class="hover:text-cyan transition-colors">{t.nav.camps}</a>
       <a href={club.instagram} target="_blank" rel="noopener" class="hover:text-cyan transition-colors">Instagram</a>
     </nav>
   </div>
   <div class="container-x mt-6 flex flex-col md:flex-row items-center justify-between gap-2">
-    <p class="text-xs text-muted/60">© {year} {club.name}. Synchronizované plávanie v Bratislave.</p>
+    <p class="text-xs text-muted/60">© {year} {club.name}. {t.footer.copyright}</p>
     <p class="text-xs text-muted/40">
-      Vytvoril <a href="https://whiteeagles.sk" target="_blank" rel="noopener" class="hover:text-muted/70 transition-colors underline underline-offset-2">White Eagles & Co.</a>
+      {t.footer.builtBy} <a href="https://whiteeagles.sk" target="_blank" rel="noopener" class="hover:text-muted/70 transition-colors underline underline-offset-2">White Eagles & Co.</a>
     </p>
   </div>
 </footer>

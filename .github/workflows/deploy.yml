@@ -24,8 +24,13 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build static site
+      # Slovak build (synchrozralok.sk) → dist/
+      - name: Build SK site
         run: npm run build
+
+      # English build (synchrozralok.com) → dist-en/
+      - name: Build EN site
+        run: PUBLIC_LOCALE=en npx astro build --outDir dist-en
 
       - name: Setup SSH
         run: |
@@ -34,7 +39,14 @@ jobs:
           chmod 600 ~/.ssh/id_deploy
           ssh-keyscan -H "${{ secrets.SSH_HOST }}" >> ~/.ssh/known_hosts 2>/dev/null
 
-      - name: Deploy via rsync
+      # Ensure both web roots exist before rsync
+      - name: Ensure remote dirs
+        run: |
+          ssh -i ~/.ssh/id_deploy -o StrictHostKeyChecking=yes \
+            "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}" \
+            "mkdir -p '${{ secrets.DEPLOY_PATH }}' '${{ secrets.DEPLOY_PATH_EN }}'"
+
+      - name: Deploy SK (synchrozralok.sk)
         run: |
           rsync -az --delete \
             --exclude='.well-known' \
@@ -42,8 +54,16 @@ jobs:
             dist/ \
             "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.DEPLOY_PATH }}/"
 
+      - name: Deploy EN (synchrozralok.com)
+        run: |
+          rsync -az --delete \
+            --exclude='.well-known' \
+            -e "ssh -i ~/.ssh/id_deploy -o StrictHostKeyChecking=yes" \
+            dist-en/ \
+            "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.DEPLOY_PATH_EN }}/"
+
       - name: Fix permissions
         run: |
           ssh -i ~/.ssh/id_deploy -o StrictHostKeyChecking=yes \
             "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}" \
-            "chown -R www-data:www-data ${{ secrets.DEPLOY_PATH }}"
+            "chown -R www-data:www-data '${{ secrets.DEPLOY_PATH }}' '${{ secrets.DEPLOY_PATH_EN }}'"

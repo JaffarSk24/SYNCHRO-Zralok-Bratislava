@@ -21,8 +21,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build
+      - name: Build SK
         run: npm run build
+
+      - name: Build EN
+        run: PUBLIC_LOCALE=en npx astro build --outDir dist-en
 
       - name: Upload dist artifact
         uses: actions/upload-artifact@v4

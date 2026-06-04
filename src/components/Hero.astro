@@ -1,6 +1,5 @@
 ---
-import club from "../content/club.json";
-import medals from "../content/medals.json";
+import { club, medals, t } from "../i18n";
 import Logo from "./Logo.astro";
 const ct = medals.clubTotal;
 ---
@@ -19,29 +18,29 @@ const ct = medals.clubTotal;
         <span class="w-6 hairline"></span> {club.city}
       </p>
       <h1 class="text-[2.7rem] sm:text-6xl lg:text-7xl font-bold leading-[0.95]">
-        Synchronizované<br />
-        plávanie pre<br />
-        <span class="text-transparent bg-clip-text" style="background-image:linear-gradient(120deg,var(--color-cyan),var(--color-aqua))">malé deti</span>
+        {t.hero.l1}<br />
+        {t.hero.l2}<br />
+        <span class="text-transparent bg-clip-text" style="background-image:linear-gradient(120deg,var(--color-cyan),var(--color-aqua))">{t.hero.l3}</span>
       </h1>
       <p class="mt-6 text-lg text-muted max-w-xl">{club.intro}</p>
 
       <div class="mt-8 flex flex-wrap gap-3">
-        <a href="#kempy" class="btn btn-primary">Staň sa akvabelkou</a>
-        <a href="#tituly" class="btn btn-ghost">Naše úspechy →</a>
+        <a href="#kempy" class="btn btn-primary">{t.hero.ctaJoin}</a>
+        <a href="#tituly" class="btn btn-ghost">{t.hero.ctaAch}</a>
       </div>
 
       <div class="mt-10 flex flex-wrap gap-x-8 gap-y-3 text-sm">
         <div class="flex items-baseline gap-2">
           <span class="font-display font-bold text-2xl text-gold">{ct.gold}</span>
-          <span class="text-muted">zlatých</span>
+          <span class="text-muted">{t.hero.gold}</span>
         </div>
         <div class="flex items-baseline gap-2">
           <span class="font-display font-bold text-2xl text-silver">{ct.silver}</span>
-          <span class="text-muted">strieborných</span>
+          <span class="text-muted">{t.hero.silver}</span>
         </div>
         <div class="flex items-baseline gap-2">
           <span class="font-display font-bold text-2xl text-bronze">{ct.bronze}</span>
-          <span class="text-muted">bronzových medailí</span>
+          <span class="text-muted">{t.hero.bronze}</span>
         </div>
       </div>
     </div>
