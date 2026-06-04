@@ -79,3 +79,15 @@ jobs:
           ssh -i ~/.ssh/id_deploy -o StrictHostKeyChecking=yes \
             "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}" \
             "chown -R www-data:www-data '${{ secrets.DEPLOY_PATH }}' '${{ secrets.DEPLOY_PATH_EN }}' '${{ secrets.DEPLOY_PATH_API }}'"
+
+      # Notify IndexNow (Bing, Seznam, Yandex) instantly after each deploy.
+      # The key is public by design — it is hosted at /<key>.txt on each domain.
+      - name: Ping IndexNow
+        run: |
+          KEY=5bc4f295ae7e94c9845aae0a303ee932
+          for HOST in synchrozralok.sk synchrozralok.com; do
+            curl -s -m 20 -X POST "https://api.indexnow.org/indexnow" \
+              -H "Content-Type: application/json" \
+              -d "{\"host\":\"$HOST\",\"key\":\"$KEY\",\"keyLocation\":\"https://$HOST/$KEY.txt\",\"urlList\":[\"https://$HOST/\"]}" \
+              -o /dev/null -w "IndexNow $HOST -> HTTP %{http_code}\n" || true
+          done
