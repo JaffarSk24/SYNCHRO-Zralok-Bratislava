@@ -1,6 +1,6 @@
 ---
 import "../styles/global.css";
-import { club, faq as faqData, t, SITE_URL, ALT_URL, OG_LOCALE, HTML_LANG, LOCALE, GA_ID } from "../i18n";
+import { club, faq as faqData, t, SITE_URL, ALT_URL, OG_LOCALE, HTML_LANG, LOCALE, GA_ID, SEZNAM_WMT } from "../i18n";
 
 interface Props {
   title?: string;
@@ -158,6 +158,7 @@ const schemaOrg = [
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {SEZNAM_WMT && <meta name="seznam-wmt" content={SEZNAM_WMT} />}
     <!-- hreflang: SK on .sk, EN on .com, both point to the same path -->
     <link rel="alternate" hreflang="sk" href={`https://synchrozralok.sk${Astro.url.pathname}`} />
     <link rel="alternate" hreflang="en" href={`https://synchrozralok.com${Astro.url.pathname}`} />
