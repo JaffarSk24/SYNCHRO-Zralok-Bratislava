@@ -176,7 +176,7 @@ const dict = {
       prev: "Previous", next: "Next",
     },
     nabor: {
-      eyebrow: "Join us", h2: "Become an aquabelle!",
+      eyebrow: "Join us", h2: "Become a synchronised swimmer!",
       p1: "Do you love water, movement and fun? Come discover the magic of synchronised swimming, where swimming, dance, gymnastics and music come together. You'll make new friends, enjoy unforgettable experiences and learn skills that will stay with you for life.",
       p2: "Join the successful Synchro Žralok team and feel the joy of moving in the water with us! 🦈💙",
       openBtn: "Application form",
@@ -197,14 +197,14 @@ const dict = {
       moreQ: "Have another question?", ig: "Message on Instagram", email: "Send an e-mail",
     },
     contact: {
-      eyebrow: "Join us", h2: "Want to become an aquabelle?",
+      eyebrow: "Join us", h2: "Want to become a synchronised swimmer?",
       pHtml: "Message us on Instagram or sign up straight away for the summer camp.<br />We look forward to seeing you in the water! 💦🦈",
       ig: "Message us on Instagram",
     },
     footer: { copyright: "Synchronised swimming in Bratislava.", builtBy: "Built by" },
     seo: {
       title: "Synchronised swimming for children from age 5 in Bratislava | SYNCHRO Žralok",
-      description: "Aquabelles club in Bratislava – training from age 5, Devínska & Karlova Ves. Summer camps 2026 from €189. First trial lesson with no commitment. Sign your daughter up today!",
+      description: "Synchronised swimming club in Bratislava – training from age 5, Devínska & Karlova Ves. Summer camps 2026 from €189. First trial lesson with no commitment. Sign your daughter up today!",
       keywords: "synchronised swimming Bratislava, artistic swimming Bratislava, swimming for girls from age 5, summer swimming camp 2026 Bratislava, Synchro Žralok Bratislava, kids swimming club Bratislava, aquabelles Bratislava",
       ogAlt: "SYNCHRO Žralok Bratislava — synchronised swimming club",
       campDesc: "Summer synchronised swimming camp for girls aged 5–12. Training in and out of the water, new friendships and the joy of movement.",
