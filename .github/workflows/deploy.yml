@@ -62,8 +62,20 @@ jobs:
             dist-en/ \
             "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.DEPLOY_PATH_EN }}/"
 
+      # Form API (PHP) lives outside the static roots; keep it in sync too.
+      # No --delete: never touch anything else in that dir.
+      - name: Deploy form API (php)
+        run: |
+          ssh -i ~/.ssh/id_deploy -o StrictHostKeyChecking=yes \
+            "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}" \
+            "mkdir -p '${{ secrets.DEPLOY_PATH_API }}'"
+          rsync -az \
+            -e "ssh -i ~/.ssh/id_deploy -o StrictHostKeyChecking=yes" \
+            server/api/ \
+            "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.DEPLOY_PATH_API }}/"
+
       - name: Fix permissions
         run: |
           ssh -i ~/.ssh/id_deploy -o StrictHostKeyChecking=yes \
             "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}" \
-            "chown -R www-data:www-data '${{ secrets.DEPLOY_PATH }}' '${{ secrets.DEPLOY_PATH_EN }}'"
+            "chown -R www-data:www-data '${{ secrets.DEPLOY_PATH }}' '${{ secrets.DEPLOY_PATH_EN }}' '${{ secrets.DEPLOY_PATH_API }}'"

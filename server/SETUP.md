@@ -32,6 +32,12 @@ CI (`.github/workflows/deploy.yml`) buildne obe a nasadí:
    ```
    Po prvom merge do `main` CI naplní `/var/www/synchrozralok-en` anglickým buildom.
 
+### Nasadenie API (php)
+CI (`deploy.yml`) okrem statiky synchronizuje aj `server/api/` → `DEPLOY_PATH_API`
+(`/var/www/synchrozralok-api/api`, bez `--delete`). Predtým sa PHP nasadzovalo ručne,
+čo spôsobilo, že server bežal na starej verzii bez `lang` (e-maily chodili po slovensky
+aj z .com) — teraz sa `prihlaska.php`/`config.php` aktualizujú pri každom merge do `main`.
+
 ### E-maily podľa jazyka
 `prihlaska.php` prijíma `lang` (`sk`/`en`) z formulára:
 - **en** → anglické predmety + texty, podpis `www.synchrozralok.com`
