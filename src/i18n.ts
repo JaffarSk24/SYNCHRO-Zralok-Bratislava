@@ -24,6 +24,8 @@ export const HTML_LANG = en ? "en" : "sk";
 export const GA_ID = en ? "G-28K9J0T5EL" : "G-LKVF753T86";
 // Seznam Webmaster (CZ) verification — per domain (empty = no tag rendered)
 export const SEZNAM_WMT = en ? "s1CJEMYe1yaBzCvlKQIdEnCZSKAJSOSw" : "ZPUK05FT23dhVlvV1hw3xwhyubbhxjNn";
+// IndexNow — unique key per domain; hosted at /<key>.txt on its own host
+export const INDEXNOW_KEY = en ? "259d8e90be0549278a596d0f0b872fa6" : "ea3e301dd59d4abf9896e0fc921fc3eb";
 
 // --- content selection ---
 export const club = (en ? enClub : skClub) as typeof skClub;

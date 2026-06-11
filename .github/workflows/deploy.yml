@@ -81,13 +81,31 @@ jobs:
             "chown -R www-data:www-data '${{ secrets.DEPLOY_PATH }}' '${{ secrets.DEPLOY_PATH_EN }}' '${{ secrets.DEPLOY_PATH_API }}'"
 
       # Notify IndexNow (Bing, Seznam, Yandex) instantly after each deploy.
-      # The key is public by design — it is hosted at /<key>.txt on each domain.
+      # Keys are public by design — each is hosted at /<key>.txt on its own host.
       - name: Ping IndexNow
         run: |
-          KEY=5bc4f295ae7e94c9845aae0a303ee932
-          for HOST in synchrozralok.sk synchrozralok.com; do
+          indexnow() {
             curl -s -m 20 -X POST "https://api.indexnow.org/indexnow" \
-              -H "Content-Type: application/json" \
-              -d "{\"host\":\"$HOST\",\"key\":\"$KEY\",\"keyLocation\":\"https://$HOST/$KEY.txt\",\"urlList\":[\"https://$HOST/\"]}" \
-              -o /dev/null -w "IndexNow $HOST -> HTTP %{http_code}\n" || true
-          done
+              -H "Content-Type: application/json; charset=utf-8" \
+              -d "{\"host\":\"$1\",\"key\":\"$2\",\"keyLocation\":\"https://$1/$2.txt\",\"urlList\":[\"https://$1/\"]}" \
+              -o /dev/null -w "IndexNow $1 -> HTTP %{http_code}\n" || true
+          }
+          indexnow synchrozralok.sk  ea3e301dd59d4abf9896e0fc921fc3eb
+          indexnow synchrozralok.com 259d8e90be0549278a596d0f0b872fa6
+
+      # Second channel: Bing Webmaster API (SubmitUrlBatch). The API key is secret
+      # (GitHub secret, never committed). Submits each site's pages for indexing.
+      - name: Submit URLs to Bing
+        env:
+          BING_API_KEY: ${{ secrets.BING_API_KEY }}
+        run: |
+          if [ -z "$BING_API_KEY" ]; then echo "BING_API_KEY not set — skipping"; exit 0; fi
+          bing() {
+            curl -s -m 30 -X POST "https://ssl.bing.com/webmaster/api.svc/json/SubmitUrlBatch?apikey=$BING_API_KEY" \
+              -H "Content-Type: application/json; charset=utf-8" \
+              -d "{\"siteUrl\":\"https://$1\",\"urlList\":[\"https://$1/\"]}" \
+              -w "Bing $1 -> HTTP %{http_code}\n" || true
+            echo
+          }
+          bing synchrozralok.sk
+          bing synchrozralok.com
