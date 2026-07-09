@@ -42,17 +42,44 @@ const c = events.camps;
 
       <h3 class="font-display font-semibold text-lg mb-4">{t.camps.datesH}</h3>
       <ul class="space-y-3">
-        {c.sessions.map((s, i) => (
-          <li class="flex items-center gap-4 p-4 rounded-xl bg-white/[0.03] border border-white/5 hover:border-cyan/30 transition-colors">
-            <span class="flex-none grid place-items-center w-10 h-10 rounded-full font-display font-bold text-abyss" style="background:linear-gradient(135deg,var(--color-cyan),var(--color-wave))">{i + 1}</span>
-            <div>
-              <div class="font-semibold">{s.dates}</div>
-              <div class="text-xs text-muted">{s.label} · {c.schedule}</div>
-            </div>
-          </li>
-        ))}
+        {c.sessions.map((s, i) => {
+          const soldOut = (s as any).soldOut;
+          return (
+            <li class:list={["relative flex items-center gap-4 p-4 rounded-xl border transition-colors", soldOut ? "sold-row border-white/5" : "bg-white/[0.03] border-white/5 hover:border-cyan/30"]}>
+              <span
+                class="flex-none grid place-items-center w-10 h-10 rounded-full font-display font-bold text-abyss"
+                style={soldOut ? "background:linear-gradient(135deg,#94a3b8,#64748b)" : "background:linear-gradient(135deg,var(--color-cyan),var(--color-wave))"}
+              >{i + 1}</span>
+              <div class={soldOut ? "opacity-70" : ""}>
+                <div class:list={["font-semibold", { "line-through decoration-white/40": soldOut }]}>{s.dates}</div>
+                <div class="text-xs text-muted">{s.label} · {c.schedule}</div>
+              </div>
+              {soldOut && <span class="sold-badge ml-auto"><span class="sold-dot" aria-hidden="true"></span>Sold out</span>}
+            </li>
+          );
+        })}
       </ul>
       <p class="mt-5 text-xs text-muted/80">{t.camps.note}</p>
     </div>
   </div>
 </section>
+
+<style>
+  /* Sold-out camp session */
+  .sold-row {
+    background: color-mix(in srgb, #e11d48 7%, transparent);
+  }
+  .sold-badge {
+    display: inline-flex; align-items: center; gap: .45rem;
+    font-size: .68rem; font-weight: 800; letter-spacing: .11em; text-transform: uppercase;
+    padding: .38rem .72rem; border-radius: 999px; white-space: nowrap; line-height: 1;
+    color: #ffe4e6;
+    background: linear-gradient(135deg, color-mix(in srgb, #fb7185 28%, transparent), color-mix(in srgb, #e11d48 22%, transparent));
+    border: 1px solid color-mix(in srgb, #fb7185 48%, transparent);
+    box-shadow: 0 6px 18px -8px color-mix(in srgb, #e11d48 70%, transparent);
+  }
+  .sold-dot {
+    width: .42rem; height: .42rem; border-radius: 999px; flex: none;
+    background: #fb7185; box-shadow: 0 0 0 3px color-mix(in srgb, #fb7185 25%, transparent);
+  }
+</style>

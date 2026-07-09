@@ -17,7 +17,7 @@
     "sessions": [
       { "label": "Session 1", "dates": "13 – 17 July 2026" },
       { "label": "Session 2", "dates": "20 – 24 July 2026" },
-      { "label": "Session 3", "dates": "3 – 8 August 2026" }
+      { "label": "Session 3", "dates": "3 – 8 August 2026", "soldOut": true }
     ],
     "ctaUrl": "https://plaveckaakademia.sk/kurzy/pre-deti/camp-akvabelky?stredisko%255B0%255D=Dev%25C3%25ADnska%23terminy",
     "ctaLabel": "Camp application"
