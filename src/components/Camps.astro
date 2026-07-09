@@ -52,7 +52,7 @@ const c = events.camps;
               >{i + 1}</span>
               <div class={soldOut ? "opacity-70" : ""}>
                 <div class:list={["font-semibold", { "line-through decoration-white/40": soldOut }]}>{s.dates}</div>
-                <div class="text-xs text-muted">{s.label} · {c.schedule}</div>
+                {!soldOut && <div class="text-xs text-muted">{s.label} · {c.schedule}</div>}
               </div>
               {soldOut && <span class="sold-badge ml-auto"><span class="sold-dot" aria-hidden="true"></span>Sold out</span>}
             </li>
