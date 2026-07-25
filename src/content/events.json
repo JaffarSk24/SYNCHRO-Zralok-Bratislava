@@ -15,9 +15,9 @@
       "Nové kamarátstva a spoločné zážitky"
     ],
     "sessions": [
-      { "label": "1. turnus", "dates": "13. – 17. 7. 2026" },
-      { "label": "2. turnus", "dates": "20. – 24. 7. 2026" },
-      { "label": "3. turnus", "dates": "3. – 8. 8. 2026", "soldOut": true }
+      { "label": "1. turnus", "dates": "13. – 17. 7. 2026", "done": true },
+      { "label": "2. turnus", "dates": "20. – 24. 7. 2026", "done": true },
+      { "label": "3. turnus", "dates": "3. – 8. 8. 2026", "spotsLeft": 2 }
     ],
     "ctaUrl": "https://plaveckaakademia.sk/kurzy/pre-deti/camp-akvabelky?stredisko%255B0%255D=Dev%25C3%25ADnska%23terminy",
     "ctaLabel": "Prihláška na kemp"
