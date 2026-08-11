@@ -164,6 +164,12 @@ const schemaOrg = [
     <link rel="alternate" hreflang="sk" href={`https://synchrozralok.sk${Astro.url.pathname}`} />
     <link rel="alternate" hreflang="en" href={`https://synchrozralok.com${Astro.url.pathname}`} />
     <link rel="alternate" hreflang="x-default" href={`https://synchrozralok.com${Astro.url.pathname}`} />
+    <!-- Machine-readable pointers to the AI/LLM context files (llms.txt convention).
+         Not a guarantee — llms.txt is a convention, not a standard, and HTML stays the
+         primary channel — but without this the files were undiscoverable (no link in
+         robots.txt or HTML; the only requests were our own audit checks). -->
+    <link rel="alternate" type="text/markdown" title="llms.txt" href="/llms.txt" />
+    <link rel="alternate" type="text/markdown" title="llms-full.txt" href="/llms-full.txt" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="theme-color" content="#050f1a" />
 
