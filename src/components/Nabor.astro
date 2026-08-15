@@ -19,6 +19,18 @@ const n = t.nabor;
       <p class="mt-5 text-muted text-lg leading-relaxed">{n.p1}</p>
       <p class="mt-4 text-muted text-lg leading-relaxed">{n.p2}</p>
 
+      <!-- Training schedule -->
+      <div class="mt-7 inline-flex flex-wrap items-center justify-center gap-x-4 gap-y-2 px-5 py-3.5 rounded-2xl"
+           style="background:color-mix(in srgb,var(--color-cyan) 8%, transparent);border:1px solid color-mix(in srgb,var(--color-cyan) 25%, transparent)">
+        <span class="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-cyan">
+          <svg viewBox="0 0 24 24" class="w-4.5 h-4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          {n.trainingsH}
+        </span>
+        <span class="font-display font-semibold text-ink">{n.trainingsDays}</span>
+        <span class="text-muted">·</span>
+        <span class="font-display font-bold text-cyan text-lg">{n.trainingsTime}</span>
+      </div>
+
       <div class="mt-8 flex justify-center">
         <button id="prihlaska-open" type="button" class="btn btn-primary">
           <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h6"/></svg>
