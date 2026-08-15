@@ -11,6 +11,7 @@ import medalsData from "./content/medals.json";
 import galleryData from "./content/gallery.json";
 import competitionsRaw from "./content/competitions.json";
 import sustredeniaRaw from "./content/sustredenia.json";
+import kempyRecapRaw from "./content/kempy-recap.json";
 
 export type Locale = "sk" | "en";
 export const LOCALE: Locale = import.meta.env.PUBLIC_LOCALE === "en" ? "en" : "sk";
@@ -36,6 +37,12 @@ export const medals = medalsData;
 export const gallery = galleryData;
 export const competitions = competitionsRaw.map((c: any) => ({ ...c, title: en && c.title_en ? c.title_en : c.title }));
 export const sustredenia = sustredeniaRaw.map((s: any) => ({ ...s, title: en && s.title_en ? s.title_en : s.title }));
+// Summer-camp video recap tiles ("Ako to bolo" block)
+export const kempyRecap = kempyRecapRaw.map((r: any) => ({
+  ...r,
+  title: en && r.title_en ? r.title_en : r.title,
+  session: en && r.session_en ? r.session_en : r.session,
+}));
 
 // localized competition locations (key = data value, which stays Slovak)
 const locationsSk: Record<string, { flag: string; label: string }> = {
@@ -116,7 +123,12 @@ const dict = {
       okText: "Ďakujeme. Vašu žiadosť sme úspešne dostali – naši tréneri vás budú čoskoro kontaktovať na uvedených údajoch.",
       close: "Zavrieť",
     },
-    camps: { eyebrow: "Podujatia", datesH: "Termíny leto 2026", note: "Tréningy vo vode aj na suchu pod vedením skúsených trénerov. Vhodné pre začiatočníčky aj pokročilé." },
+    camps: {
+      eyebrow: "Podujatia", datesH: "Termíny leto 2026",
+      note: "Tréningy vo vode aj na suchu pod vedením skúsených trénerov. Vhodné pre začiatočníčky aj pokročilé.",
+      recapH: "Ako to bolo ✨",
+      recapText: "Letné kempy 2026 sú úspešne za nami – tri turnusy plné vody, hudby, nových kamarátstiev a radosti z pohybu. Pozrite si, ako sme si to užili 🦈💙",
+    },
     faqUi: {
       eyebrow: "Otázky a odpovede", h2: "Čo vás zaujíma najčastejšie",
       intro: "Nenašli ste odpoveď? Napíšte nám na Instagrame alebo na mail.",
@@ -202,7 +214,12 @@ const dict = {
       okText: "Thank you. We've successfully received your request – our coaches will contact you soon using the details you provided.",
       close: "Close",
     },
-    camps: { eyebrow: "Events", datesH: "Summer 2026 dates", note: "Training in the water and on dry land under experienced coaches. Suitable for beginners and advanced alike." },
+    camps: {
+      eyebrow: "Events", datesH: "Summer 2026 dates",
+      note: "Training in the water and on dry land under experienced coaches. Suitable for beginners and advanced alike.",
+      recapH: "How it went ✨",
+      recapText: "Summer camps 2026 are successfully behind us – three sessions full of water, music, new friendships and the joy of movement. Have a look at how much fun we had 🦈💙",
+    },
     faqUi: {
       eyebrow: "Questions & answers", h2: "What people ask most",
       intro: "Didn't find your answer? Message us on Instagram or by e-mail.",
