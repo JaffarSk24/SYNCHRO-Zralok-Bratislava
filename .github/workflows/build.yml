@@ -1,10 +1,12 @@
 name: Build check
 
+# Runs on pull requests only. Pushes to main go straight to "Deploy to Hetzner",
+# which builds both locales itself — running this on every push would just
+# duplicate that work and burn Actions minutes.
 on:
-  push:
-    branches: [develop, main]
   pull_request:
     branches: [main]
+  workflow_dispatch:
 
 jobs:
   build:
