@@ -84,28 +84,44 @@ jobs:
       # Keys are public by design — each is hosted at /<key>.txt on its own host.
       - name: Ping IndexNow
         run: |
+          # Non-blocking: a failed ping never fails the deploy, but it shows up
+          # as a yellow warning on the run instead of passing silently.
           indexnow() {
-            curl -s -m 20 -X POST "https://api.indexnow.org/indexnow" \
+            code=$(curl -s -m 20 -X POST "https://api.indexnow.org/indexnow" \
               -H "Content-Type: application/json; charset=utf-8" \
               -d "{\"host\":\"$1\",\"key\":\"$2\",\"keyLocation\":\"https://$1/$2.txt\",\"urlList\":[\"https://$1/\"]}" \
-              -o /dev/null -w "IndexNow $1 -> HTTP %{http_code}\n" || true
+              -o /dev/null -w "%{http_code}" || echo "000")
+            echo "IndexNow $1 -> HTTP $code"
+            case "$code" in
+              200|202) ;;
+              *) echo "::warning title=IndexNow failed::$1 answered HTTP $code" ;;
+            esac
           }
           indexnow synchrozralok.sk  ea3e301dd59d4abf9896e0fc921fc3eb
           indexnow synchrozralok.com 259d8e90be0549278a596d0f0b872fa6
 
       # Second channel: Bing Webmaster API (SubmitUrlBatch). The API key is secret
-      # (GitHub secret, never committed). Submits each site's pages for indexing.
+      # (GitHub secret, never committed) and is one per Bing account, so it covers
+      # both sites. Non-blocking, but anything other than HTTP 200 is flagged.
       - name: Submit URLs to Bing
         env:
           BING_API_KEY: ${{ secrets.BING_API_KEY }}
         run: |
-          if [ -z "$BING_API_KEY" ]; then echo "BING_API_KEY not set — skipping"; exit 0; fi
+          if [ -z "$BING_API_KEY" ]; then
+            echo "::warning title=Bing skipped::BING_API_KEY secret is not set"
+            exit 0
+          fi
           bing() {
-            curl -s -m 30 -X POST "https://ssl.bing.com/webmaster/api.svc/json/SubmitUrlBatch?apikey=$BING_API_KEY" \
+            body=$(curl -s -m 30 -X POST "https://ssl.bing.com/webmaster/api.svc/json/SubmitUrlBatch?apikey=$BING_API_KEY" \
               -H "Content-Type: application/json; charset=utf-8" \
               -d "{\"siteUrl\":\"https://$1\",\"urlList\":[\"https://$1/\"]}" \
-              -w "Bing $1 -> HTTP %{http_code}\n" || true
-            echo
+              -w "\n%{http_code}" || printf '\n000')
+            code=$(printf '%s' "$body" | tail -n1)
+            resp=$(printf '%s' "$body" | sed '$d')
+            echo "Bing $1 -> HTTP $code $resp"
+            if [ "$code" != "200" ]; then
+              echo "::warning title=Bing submit failed::$1 answered HTTP $code $resp (check the BING_API_KEY secret)"
+            fi
           }
           bing synchrozralok.sk
           bing synchrozralok.com
