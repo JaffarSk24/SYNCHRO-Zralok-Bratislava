@@ -58,7 +58,7 @@ Deployment notes: see [DEPLOY.md](./DEPLOY.md).
 
 ## Credits
 
-Designed & developed by **White Eagles & Co.** — [whiteeagles.sk](https://whiteeagles.sk)
+Designed & developed by **White Eagles & Co.** — [whiteeagles.sk](https://whiteeagles.sk/en/)
 
 Content, photos & brand: SYNCHRO Žralok Bratislava
 ([@synchro.zralok.bratislava](https://www.instagram.com/synchro.zralok.bratislava/)).

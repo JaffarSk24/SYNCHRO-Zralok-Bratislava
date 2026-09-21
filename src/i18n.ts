@@ -21,6 +21,8 @@ export const SITE_URL = en ? "https://synchrozralok.com" : "https://synchrozralo
 export const ALT_URL = en ? "https://synchrozralok.sk" : "https://synchrozralok.com";
 export const OG_LOCALE = en ? "en_GB" : "sk_SK";
 export const HTML_LANG = en ? "en" : "sk";
+// Developer credit link: canonical language root (the bare domain 301s to /sk/)
+export const WHITE_EAGLES_URL = en ? "https://whiteeagles.sk/en/" : "https://whiteeagles.sk/sk/";
 // GA4 — separate property per locale/domain
 export const GA_ID = en ? "G-28K9J0T5EL" : "G-LKVF753T86";
 // Seznam Webmaster (CZ) verification — per domain (empty = no tag rendered)

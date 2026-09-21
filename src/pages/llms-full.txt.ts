@@ -109,7 +109,7 @@ ${faqBlock}
 
 - URL: ${SITE_URL}
 - Language: English (Slovak version: ${ALT_URL})
-- Built by: White Eagles & Co. (https://whiteeagles.sk)
+- Built by: White Eagles & Co. (https://whiteeagles.sk/en/)
 `
     : `# ${club.name} — Kompletný prehľad
 
@@ -175,7 +175,7 @@ ${faqBlock}
 
 - URL: ${SITE_URL}
 - Jazyk: slovenčina (anglická verzia: ${ALT_URL})
-- Vytvoril: White Eagles & Co. (https://whiteeagles.sk)
+- Vytvoril: White Eagles & Co. (https://whiteeagles.sk/sk/)
 `;
   return new Response(body, {
     headers: { "Content-Type": "text/plain; charset=utf-8" },

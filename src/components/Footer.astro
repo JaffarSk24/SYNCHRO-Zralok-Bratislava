@@ -1,5 +1,5 @@
 ---
-import { club, t } from "../i18n";
+import { club, t, WHITE_EAGLES_URL } from "../i18n";
 import Logo from "./Logo.astro";
 const year = new Date().getFullYear();
 ---
@@ -25,7 +25,7 @@ const year = new Date().getFullYear();
   <div class="container-x mt-6 flex flex-col md:flex-row items-center justify-between gap-2">
     <p class="text-xs text-muted/60">© {year} {club.name}. {t.footer.copyright}</p>
     <p class="text-xs text-muted/40">
-      {t.footer.builtBy} <a href="https://whiteeagles.sk" target="_blank" rel="noopener" class="hover:text-muted/70 transition-colors underline underline-offset-2">White Eagles & Co.</a>
+      {t.footer.builtBy} <a href={WHITE_EAGLES_URL} target="_blank" rel="noopener" class="hover:text-muted/70 transition-colors underline underline-offset-2">White Eagles & Co.</a>
     </p>
   </div>
 </footer>
