@@ -17,6 +17,7 @@ reproducible.
 - `location ~ \.(xml|txt)$ { try_files $uri =404; }` — stale/removed files (e.g. the
   old `sitemap-index.xml`) return a real 404 instead of the SPA HTML fallback.
 - ACME challenge left open for Let's Encrypt renewals.
+- The site is a single page: any other address answers a real 404 with the home page as the body (no soft 404). Dotfiles and server-side or backup file types (`.php`, `.sql`, `.bak`, `.env`, `.yml`, archives...) answer a bare 404.
 - `/api/(config|prihlaska).php` → php-fpm; PHP lives in `/var/www/synchrozralok-api`
   (outside the static roots) and reads secrets from `/etc/synchrozralok/.env`.
 - No basic auth (the site is public). No secrets are stored in these files.
